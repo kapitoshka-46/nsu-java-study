@@ -12,7 +12,7 @@ import java.util.Map.Entry;
 public class WordStatistics {
     List<Entry<String, Integer>> sortedFrequencyTable;
 
-    private static List<Entry<String, Integer>> createSortedFrequencyTable(Reader reader) throws IOException {
+    private static HashMap<String, Integer> createFrequencyMap(Reader reader) throws IOException {
         StringBuilder word = new StringBuilder();
         HashMap<String, Integer> map = new HashMap<>();
 
@@ -26,7 +26,15 @@ public class WordStatistics {
             }
         }
 
-        List<Entry<String, Integer>> frequencyTable = new ArrayList<>(map.entrySet());
+        return map;
+    }
+
+    // TODO: use buffer for reading
+    private static List<Entry<String, Integer>> createSortedFrequencyTable(Reader reader) throws IOException {
+
+        List<Entry<String, Integer>> frequencyTable = new ArrayList<>(
+                createFrequencyMap(reader).entrySet());
+
         frequencyTable.sort(Entry.comparingByValue(Collections.reverseOrder()));
         return frequencyTable;
     }
@@ -37,14 +45,13 @@ public class WordStatistics {
             this.sortedFrequencyTable = createSortedFrequencyTable(reader);
         }
 
-        // we need to create sorted by frequancy of words list
-
     }
 
     public List<Entry<String, Integer>> getFrequencyTable() {
         return Collections.unmodifiableList(sortedFrequencyTable);
     }
 
+    // TODO: use buffer for writing ? like 1024 symbols
     public void saveAsCSV(String filename) throws IOException {
         try (FileWriter fileWriter = new FileWriter("output.csv")) {
             for (Entry<String, Integer> pair : sortedFrequencyTable) {

@@ -22,7 +22,7 @@ class GuessNumberGame {
                 isValid = true;
             } catch (InputMismatchException e) {
                 System.out.println(
-                    "Invalid input. You can input only digits from 1 to 100" +
+                    "Invalid input. You can input only digits from 1 to 100"
                 );
                 System.out.println("Try again");
                 scanner.next(); // skipping invalid token

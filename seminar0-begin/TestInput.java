@@ -9,5 +9,6 @@ class TestInput {
                 System.out.println("--> " + scanner.next());
             }
         }
+
     }
 }

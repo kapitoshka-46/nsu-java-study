@@ -7,8 +7,10 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 public class WordStatistics {
@@ -44,13 +46,13 @@ public class WordStatistics {
     }
 
     private static List<Entry<String, Integer>> createSortedFrequencyTable(Reader reader) throws IOException {
-
         List<Entry<String, Integer>> frequencyTable = new ArrayList<>(
                 createFrequencyMap(reader).entrySet());
 
-        frequencyTable.sort(Entry.comparingByValue(Collections.reverseOrder()));
-        return frequencyTable;
+        frequencyTable.sort(Entry.<String, Integer>comparingByValue().reversed()
+                .thenComparing(Entry.comparingByKey()));
 
+        return frequencyTable;
     }
 
     public WordStatistics(String filename) throws IOException {
@@ -65,7 +67,7 @@ public class WordStatistics {
     }
 
     public void saveAsCSV(String filename) throws IOException {
-        try (FileWriter fileWriter = new FileWriter("output.csv");
+        try (FileWriter fileWriter = new FileWriter(filename);
                 BufferedWriter bufferOut = new BufferedWriter(fileWriter)) {
             for (Entry<String, Integer> pair : sortedFrequencyTable) {
                 bufferOut.append(pair.getKey().toString() + "," + pair.getValue().toString() + "\n");

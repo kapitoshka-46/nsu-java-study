@@ -2,15 +2,23 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Starting program");
+
+        if (args.length != 2) {
+            System.out.println("Usage:");
+            System.out.println("    freq [input text] [output csv]");
+            return;
+        }
+
+        System.out.println("Reading " + args[0]);
 
         try {
-            WordStatistics wordstat = new WordStatistics("test/text.txt");
-            wordstat.saveAsCSV("test/result.csv");
+            WordStatistics wordstat = new WordStatistics(args[0]);
+            System.out.println("Saving statistics to " + args[1]);
+            wordstat.saveAsCSV(args[1]);
+            System.out.println("Done!");
+
         } catch (IOException e) {
             System.out.println("Get IO exception: " + e.getLocalizedMessage());
         }
-
-        System.out.println("Closing...");
     }
 }

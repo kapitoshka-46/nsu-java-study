@@ -7,10 +7,8 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 public class WordStatistics {
@@ -24,11 +22,11 @@ public class WordStatistics {
 
         StringBuilder word = new StringBuilder();
         int cnt;
+
         while ((cnt = reader.read(buffer)) != -1) {
             if (cnt < BUFFER_SIZE) {
-                buffer = Arrays.copyOf(buffer, cnt); // TODO: can i just decrease buffer length?
+                buffer = Arrays.copyOf(buffer, cnt);
             }
-
             for (char c : buffer) {
                 if (Character.isLetterOrDigit(c)) {
                     word.append(c);

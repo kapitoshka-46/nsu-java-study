@@ -6,9 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import org.junit.Test;
 
 public class WordStatisticsTest {
@@ -23,15 +21,7 @@ public class WordStatisticsTest {
         return filename;
     }
 
-    private static List<String> getLines(List<Entry<String, Integer>> table) {
-        List<String> result = new ArrayList<>();
-        for (var entry : table) {
-            result.add(entry.getKey() + "," + entry.getValue());
-        }
-        return result;
-    }
-
-    private static List<String> getLines(String filename) throws IOException {
+    private static List<String> readAllLines(String filename) throws IOException {
         try (Reader reader = new FileReader(filename)) {
             return reader.readAllLines();
         }
@@ -43,22 +33,21 @@ public class WordStatisticsTest {
 
         WordStatistics wordstat = new WordStatistics(filename);
         wordstat.saveAsCSV(resultFilename);
-        List<String> result = getLines(resultFilename);
+        List<String> result = readAllLines(resultFilename);
 
         assertEquals(expected, result);
-        assertEquals(result, getLines(wordstat.getFrequencyTable()));
     }
 
     @Test
     public void lexicographicalWords() throws IOException {
         test("aa ba aa ba ca dd",
-                List.of("aa,2", "ba,2", "ca,1", "dd,1"));
+                List.of("aa,2,33.33%", "ba,2,33.33%", "ca,1,16.67%", "dd,1,16.67%"));
     }
 
     @Test
     public void noLexicographicalWords() throws IOException {
         test("ba ba aa aa ca dd",
-                List.of("aa,2", "ba,2", "ca,1", "dd,1"));
+                List.of("aa,2,33.33%", "ba,2,33.33%", "ca,1,16.67%", "dd,1,16.67%"));
     }
 
     @Test
@@ -69,7 +58,7 @@ public class WordStatisticsTest {
     @Test
     public void startsFromSpace() throws IOException {
         test(" aa dd",
-                List.of("aa,1", "dd,1"));
+                List.of("aa,1,50.00%", "dd,1,50.00%"));
     }
 
     @Test
@@ -86,9 +75,9 @@ public class WordStatisticsTest {
         }
 
         test(content.toString(),
-                List.of("word5000,5000",
-                        "word1000,1000",
-                        "word300,300"));
+                List.of("word5000,5000,79.37%",
+                        "word1000,1000,15.87%",
+                        "word300,300,4.76%"));
     }
 
     @Test

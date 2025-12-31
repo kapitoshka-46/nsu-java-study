@@ -8,9 +8,8 @@ public class Main {
             return;
         }
 
-        System.out.println("Reading " + args[0]);
-
         try {
+            System.out.println("Reading file" + args[0]);
             WordStatistics wordstat = new WordStatistics(args[0]);
             System.out.println("Saving statistics to " + args[1]);
             wordstat.saveAsCSV(args[1]);

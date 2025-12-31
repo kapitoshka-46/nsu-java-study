@@ -1,5 +1,7 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class WordStatisticsTest {
         wordstat.saveAsCSV(resultFilename);
         List<String> result = getLines(resultFilename);
 
-        assertEquals(result, expected);
+        assertEquals(expected, result);
         assertEquals(result, getLines(wordstat.getFrequencyTable()));
     }
 
@@ -65,6 +67,12 @@ public class WordStatisticsTest {
     }
 
     @Test
+    public void startsFromSpace() throws IOException {
+        test(" aa dd",
+                List.of("aa,1", "dd,1"));
+    }
+
+    @Test
     public void BigFile() throws IOException {
         StringBuilder content = new StringBuilder();
         for (int i = 0; i < 1000; i++) {
@@ -81,5 +89,13 @@ public class WordStatisticsTest {
                 List.of("word5000,5000",
                         "word1000,1000",
                         "word300,300"));
+    }
+
+    @Test
+    public void FileNotFoundExcpetion() {
+        FileNotFoundException thrown = assertThrows(FileNotFoundException.class,
+                () -> {
+                    new WordStatistics("ThisFile.Should.Not.Exist.120aaaa42a2d");
+                });
     }
 }

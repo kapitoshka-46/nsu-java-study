@@ -2,7 +2,6 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-
         if (args.length != 2) {
             System.out.println("Usage:");
             System.out.println("    freq [input text] [output csv]");
@@ -18,7 +17,7 @@ public class Main {
             System.out.println("Done!");
 
         } catch (IOException e) {
-            System.out.println("Get IO exception: " + e.getLocalizedMessage());
+            System.out.println("Error: " + e.getLocalizedMessage());
         }
     }
 }

@@ -16,3 +16,10 @@ baz
 fiz
 fizbaz
 ```
+The ouput will be:
+```
+fiz,4,57.14%
+baz,2,28.57%
+fizbaz,1,14.29%
+
+```

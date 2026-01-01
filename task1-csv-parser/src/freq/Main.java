@@ -1,3 +1,5 @@
+package freq;
+
 import java.io.IOException;
 
 public class Main {

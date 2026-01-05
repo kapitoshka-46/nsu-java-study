@@ -15,12 +15,10 @@ public class Context {
     }
 
     public Memory getMemory() {
-        System.out.println("access to the memory");
         return memory;
     }
 
     public Stack<Double> getStack() {
-        System.out.println("access to the stack");
         return stack;
     }
 

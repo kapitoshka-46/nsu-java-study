@@ -1,11 +1,11 @@
-package jcalc.logic.cmd;
+package jcalc.logic.cmd.arithmetic;
+
+import jcalc.logic.cmd.BaseCommand;
 
 import java.util.Stack;
-
 import jcalc.logic.Context;
 
-public class DivideCommand extends BaseCommand {
-
+public class MinusCommand extends BaseCommand {
     @Override
     public void execute(Context ctx, String[] args) throws IllegalArgumentException {
         validateArgs(args, 1); // only cmdName becuse operands are on the stack
@@ -14,11 +14,8 @@ public class DivideCommand extends BaseCommand {
         double first = stack.pop();
         double second = stack.pop();
 
-        if (second == 0) {
-            throw new ArithmeticException("Dividing by zero");
-        }
+        stack.push(first - second);
+        System.out.println("pushed " + first + " - " + second);
 
-        stack.push(first / second);
     }
-
 }

@@ -1,8 +1,9 @@
-package jcalc.logic.cmd;
+package jcalc.logic.cmd.arithmetic;
+
+import jcalc.logic.cmd.BaseCommand;
+import jcalc.logic.Context;
 
 import java.util.Stack;
-
-import jcalc.logic.Context;
 
 public class SqrtCommand extends BaseCommand {
 

@@ -6,10 +6,10 @@ import java.lang.IllegalArgumentException;
 public interface Command {
     /**
      * 
-     * @param ctx  Memory and stack
+     * @param ctx  Access to the memory and stack
      * @param args Array of arguments in C style: args[0] is the name of command,
      *             args[1] is the first agrument
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if args are not valid for this command
      */
     void execute(Context ctx, String[] args) throws IllegalArgumentException;
 }

@@ -14,7 +14,20 @@ public class Memory {
      * @param value
      */
     public void defineVar(String name, double value) {
+        checkVarName(name);
+        System.out.println(name + " = " + value);
         varTable.put(name, value);
+    }
+
+    private void checkVarName(String name) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Cannot create var with empty name");
+        }
+        char first = name.charAt(0);
+        if (Character.isDigit(first)) {
+            throw new IllegalArgumentException("The name of a var shouldn't start with digit");
+        }
+
     }
 
     public Memory() {
@@ -22,15 +35,20 @@ public class Memory {
     }
 
     /**
+     * Trying to find a value in the memory
      * 
      * @param name
      * @return Value of the var with this name
      * @throws IllegalArgumentException if no var is defined with this name
      */
     public double getVar(String name) throws IllegalArgumentException {
+        System.out.println("trying to find: " + name);
         if (!varTable.containsKey(name)) {
-            throw new IllegalArgumentException("Var '" + name + "' is not defined.");
+            System.out.println("cannot find: " + name);
+            throw new IllegalArgumentException("Var " + name + " is not defined.");
         }
-        return varTable.get(name);
+        double x = varTable.get(name);
+        System.out.println("founded " + name + " = " + x);
+        return x;
     }
 }

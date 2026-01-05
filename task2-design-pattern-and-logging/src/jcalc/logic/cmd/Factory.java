@@ -1,13 +1,8 @@
 package jcalc.logic.cmd;
 
-import jcalc.logic.cmd.*;
-import jcalc.logic.cmd.arithmetic.DivideCommand;
-import jcalc.logic.cmd.arithmetic.MultCommand;
-import jcalc.logic.cmd.arithmetic.PlusCommand;
-import jcalc.logic.cmd.arithmetic.SqrtCommand;
-import jcalc.logic.cmd.memory.DefineCommand;
-import jcalc.logic.cmd.stack.PopCommand;
-import jcalc.logic.cmd.stack.PushCommand;
+import jcalc.logic.cmd.arithmetic.*;
+import jcalc.logic.cmd.memory.*;
+import jcalc.logic.cmd.stack.*;
 
 public class Factory { // TODO: use real factory design pattern - not a simple factory
     public static Command newCommand(String cmdName) throws IllegalArgumentException {
@@ -41,6 +36,9 @@ public class Factory { // TODO: use real factory design pattern - not a simple f
             case "help":
             case "?":
                 return new HelpCommand();
+            case "print":
+            case "PRINT":
+                return new PrintCommand();
             default:
                 throw new IllegalArgumentException("Command not found: " + cmdName);
         }

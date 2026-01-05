@@ -1,6 +1,7 @@
-package jcalc.logic.cmd;
+package jcalc.logic.cmd.stack;
 
 import jcalc.logic.Context;
+import jcalc.logic.cmd.BaseCommand;
 
 public class PopCommand extends BaseCommand {
 

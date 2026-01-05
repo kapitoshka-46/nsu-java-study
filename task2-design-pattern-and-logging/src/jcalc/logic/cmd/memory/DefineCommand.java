@@ -1,6 +1,7 @@
-package jcalc.logic.cmd;
+package jcalc.logic.cmd.memory;
 
 import jcalc.logic.Context;
+import jcalc.logic.cmd.BaseCommand;
 
 public class DefineCommand extends BaseCommand {
 

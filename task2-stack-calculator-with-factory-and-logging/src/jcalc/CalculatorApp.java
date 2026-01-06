@@ -8,8 +8,8 @@ import java.io.PrintStream;
 import java.util.EmptyStackException;
 
 import jcalc.logic.Context;
-import jcalc.logic.cmd.factory.Factory;
 import jcalc.logic.cmd.Command;
+import jcalc.logic.factory.Factory;
 
 public class CalculatorApp {
     private final Context ctx;

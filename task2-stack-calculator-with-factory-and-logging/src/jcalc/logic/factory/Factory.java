@@ -1,4 +1,4 @@
-package jcalc.logic.cmd.factory;
+package jcalc.logic.factory;
 
 import java.io.IOException;
 import java.io.InputStream;

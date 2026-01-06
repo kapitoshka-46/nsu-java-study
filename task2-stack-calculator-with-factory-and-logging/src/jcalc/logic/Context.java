@@ -1,5 +1,6 @@
 package jcalc.logic;
 
+import java.io.PrintStream;
 import java.util.Stack;
 
 /**
@@ -8,8 +9,11 @@ import java.util.Stack;
 public class Context {
     private Memory memory;
     private Stack<Double> stack;
+    public final PrintStream out;
+    private boolean isRunning = true;
 
-    public Context() {
+    public Context(PrintStream out) {
+        this.out = out;
         memory = new Memory();
         stack = new Stack<>();
     }
@@ -22,4 +26,11 @@ public class Context {
         return stack;
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
 }

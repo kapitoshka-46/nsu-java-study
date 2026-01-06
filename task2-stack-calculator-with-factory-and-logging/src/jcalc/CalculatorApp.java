@@ -8,7 +8,8 @@ import java.io.PrintStream;
 import java.util.EmptyStackException;
 
 import jcalc.logic.Context;
-import jcalc.logic.cmd.*;
+import jcalc.logic.cmd.factory.Factory;
+import jcalc.logic.cmd.Command;
 
 public class CalculatorApp {
     private final Context ctx;
@@ -16,14 +17,15 @@ public class CalculatorApp {
     private final PrintStream out;
 
     public CalculatorApp(InputStream in, PrintStream out) {
-        ctx = new Context();
         this.in = new InputStreamReader(in);
         this.out = out;
+        this.ctx = new Context(this.out);
     }
 
     private void tryExec(String cmdName, String[] args) {
         try {
-            Command cmd = Factory.newCommand(cmdName);
+            Factory factory = new Factory();
+            Command cmd = factory.newCommand(cmdName);
             cmd.execute(ctx, args);
         } catch (EmptyStackException e) {
             out.println("ERROR: Stack is empty");
@@ -38,7 +40,7 @@ public class CalculatorApp {
 
             String line;
             out.print("> ");
-            while ((line = reader.readLine()) != null) {
+            while (ctx.isRunning() && (line = reader.readLine()) != null) {
 
                 String[] args = line.split(" "); // TODO: use better regexp
                 String cmdName = args[0];

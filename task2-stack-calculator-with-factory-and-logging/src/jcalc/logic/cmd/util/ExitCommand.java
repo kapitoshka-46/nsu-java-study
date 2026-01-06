@@ -1,14 +1,13 @@
-package jcalc.logic.cmd.stack;
+package jcalc.logic.cmd.util;
 
 import jcalc.logic.Context;
 import jcalc.logic.cmd.BaseCommand;
 
-public class PrintCommand extends BaseCommand {
+public class ExitCommand extends BaseCommand {
 
     @Override
     public void execute(Context ctx, String[] args) throws IllegalArgumentException {
-        validateArgs(args, 1);
-        ctx.out.println(ctx.getStack().peek());
+        ctx.setRunning(false);
     }
 
 }

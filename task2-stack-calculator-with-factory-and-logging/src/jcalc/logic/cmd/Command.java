@@ -2,6 +2,7 @@ package jcalc.logic.cmd;
 
 import jcalc.logic.Context;
 import java.lang.IllegalArgumentException;
+import java.util.EmptyStackException;
 
 public interface Command {
     /**
@@ -11,5 +12,5 @@ public interface Command {
      *             args[1] is the first agrument
      * @throws IllegalArgumentException if args are not valid for this command
      */
-    void execute(Context ctx, String[] args) throws IllegalArgumentException;
+    void execute(Context ctx, String[] args) throws IllegalArgumentException, EmptyStackException;
 }

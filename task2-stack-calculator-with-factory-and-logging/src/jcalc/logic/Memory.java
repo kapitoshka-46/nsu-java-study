@@ -42,13 +42,11 @@ public class Memory {
      * @throws IllegalArgumentException if no var is defined with this name
      */
     public double getVar(String name) throws IllegalArgumentException {
-        System.out.println("trying to find: " + name);
         if (!varTable.containsKey(name)) {
             System.out.println("cannot find: " + name);
             throw new IllegalArgumentException("Var " + name + " is not defined.");
         }
         double x = varTable.get(name);
-        System.out.println("founded " + name + " = " + x);
         return x;
     }
 }

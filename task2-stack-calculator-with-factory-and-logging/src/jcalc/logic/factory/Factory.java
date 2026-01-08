@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import jcalc.logic.cmd.Command;
 
-public class Factory { // TODO: use real factory design pattern - not a simple factory
+public class Factory {
     private Map<String, String> classMap = new HashMap<>();
 
     public Factory() {
@@ -42,26 +42,21 @@ public class Factory { // TODO: use real factory design pattern - not a simple f
         }
     }
 
-    public Command newCommand(String cmdName) throws IllegalArgumentException {
-        if (cmdName == null || cmdName.isEmpty()) {
-            throw new IllegalArgumentException("Command name cannot be null or empty");
-        }
-
-        // if it is a comment
-        if (cmdName.charAt(0) == '#') {
-            cmdName = "#";
-        }
-
+    private Command tryCreateCommand(String cmdName) {
         String className = classMap.get(cmdName);
 
         if (className == null) {
             throw new IllegalArgumentException("Unknown command: " + cmdName);
         }
+
         try {
             Class<?> clazz = Class.forName(className);
             if (!Command.class.isAssignableFrom(clazz)) {
                 throw new IllegalArgumentException("Class" + className + "does not implement Command interface");
             }
+
+            // now we know that clazz has type Class<? extends command> then we can cast it
+            // to Command safely
             return (Command) clazz.getDeclaredConstructor().newInstance();
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException(
@@ -69,6 +64,25 @@ public class Factory { // TODO: use real factory design pattern - not a simple f
         } catch (ReflectiveOperationException e) {
             throw new IllegalStateException("Unfixable problems while instantiate command class");
         }
+    }
+
+    /**
+     * 
+     * @param cmdName
+     * @return new instance of CommandClass that matches cmdName
+     * @throws IllegalArgumentException if cannot create class for cmdName
+     * 
+     */
+    public Command newCommand(String cmdName) throws IllegalArgumentException {
+        if (cmdName == null || cmdName.isEmpty()) {
+            throw new IllegalArgumentException("Command name cannot be null or empty");
+        }
+        // if it is a comment
+        if (cmdName.charAt(0) == '#') {
+            cmdName = "#";
+        }
+
+        return tryCreateCommand(cmdName);
 
     }
 }

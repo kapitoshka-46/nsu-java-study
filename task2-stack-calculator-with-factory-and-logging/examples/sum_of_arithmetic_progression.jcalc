@@ -20,3 +20,5 @@ PUSH N
 SQRT
 
 PRINT
+
+# output: 5050.0

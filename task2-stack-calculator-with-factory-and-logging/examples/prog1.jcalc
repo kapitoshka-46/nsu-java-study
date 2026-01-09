@@ -3,4 +3,4 @@ PUSH a
 SQRT
 PRINT
 
-#output: 2
+# output: 2.0

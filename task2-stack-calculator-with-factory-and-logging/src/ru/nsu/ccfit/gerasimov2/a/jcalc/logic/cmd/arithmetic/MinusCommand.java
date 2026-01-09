@@ -7,7 +7,7 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 
 public class MinusCommand extends BaseCommand {
     @Override
-    public void execute(Context ctx, String[] args) throws IllegalArgumentException {
+    public void execute(Context ctx, String[] args) {
         validateArgs(args, 1); // only cmdName becuse operands are on the stack
         Stack<Double> stack = ctx.getStack();
 

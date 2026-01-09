@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
+import ru.nsu.ccfit.gerasimov2.a.jcalc.exception.CalculatorException;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.Command;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.factory.Factory;
@@ -30,33 +31,27 @@ public class CalculatorApp {
     /** Current line in file. Do not use it if in calculator works in file mode */
     private int lineCount = 0;
 
-    public CalculatorApp(String[] args) {
+    public CalculatorApp(String[] args) throws ParseException, FileNotFoundException {
         // TODO: reorgonize and simplify this shit ...
         DefaultParser parser = new DefaultParser();
         Options options = new Options();
         options.addOption(null, "debug", false, "Debug mode");
         CommandLine cmdLine = null;
-        try {
-            cmdLine = parser.parse(options, args);
-        } catch (ParseException e) {
-            out.println("ERROR: Failed to parse command line options: " + e.getLocalizedMessage());
-            System.exit(1);
-        }
-
+        cmdLine = parser.parse(options, args); // TODO: print help if parse excetption and close program
         String[] posArgs = cmdLine.getArgs();
         if (posArgs.length == 0) {
             isFileMode = false;
             in = new BufferedReader(new InputStreamReader(System.in));
         } else {
-            try {
-                in = new BufferedReader(new InputStreamReader(new FileInputStream(posArgs[0])));
-            } catch (FileNotFoundException e) {
-                out.println("ERROR: " + e.getLocalizedMessage());
-            } finally {
-                if (in == null) {
-                    System.exit(2);
-                }
-            }
+            in = new BufferedReader(new InputStreamReader(new FileInputStream(posArgs[0])));
+        }
+    }
+
+    private void printError(String msg) {
+        if (isFileMode) {
+            out.printf("Error at line %d: %s\n", lineCount, msg);
+        } else {
+            out.println("Error: " + msg);
         }
     }
 
@@ -68,14 +63,12 @@ public class CalculatorApp {
         try {
             Command cmd = factory.newCommand(cmdName);
             cmd.execute(ctx, args);
-        } catch (Exception e) {
+        } catch (CalculatorException e) {
+            printError(e.getLocalizedMessage());
             if (isFileMode) {
-                out.printf("Error at line %d: %s\n", lineCount, e.getLocalizedMessage());
-            } else {
-                out.println("Error: " + e.getLocalizedMessage());
+                ctx.setShouldClose(true);
             }
         }
-
     }
 
     private void printPrompt() {
@@ -91,7 +84,7 @@ public class CalculatorApp {
 
             String line;
             printPrompt();
-            while (ctx.isRunning() && (line = reader.readLine()) != null) {
+            while (!ctx.shouldClose() && (line = reader.readLine()) != null) {
                 lineCount++;
                 String[] args = line.split(" "); // TODO: use better regexp
                 String cmdName = args[0];
@@ -100,7 +93,6 @@ public class CalculatorApp {
             }
         } catch (IOException e) {
             out.println("IOException: " + e.getLocalizedMessage());
-            System.exit(3);
         }
 
     }

@@ -8,7 +8,7 @@ import java.util.Stack;
 public class MultCommand extends BaseCommand {
 
     @Override
-    public void execute(Context ctx, String[] args) throws IllegalArgumentException {
+    public void execute(Context ctx, String[] args) {
         validateArgs(args, 1); // only cmdName becuse operands are on the stack
         Stack<Double> stack = ctx.getStack();
 

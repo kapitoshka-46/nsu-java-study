@@ -6,9 +6,10 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.BaseCommand;
 public class PrintCommand extends BaseCommand {
 
     @Override
-    public void execute(Context ctx, String[] args) throws IllegalArgumentException {
+    public void execute(Context ctx, String[] args) {
         validateArgs(args, 1);
-        ctx.out.println(ctx.getStack().peek());
+        var stack = ctx.getStack();
+        ctx.out.println(stack.isEmpty() ? "" : stack.peek());
     }
 
 }

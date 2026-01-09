@@ -6,8 +6,8 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.BaseCommand;
 public class ExitCommand extends BaseCommand {
 
     @Override
-    public void execute(Context ctx, String[] args) throws IllegalArgumentException {
-        ctx.setRunning(false);
+    public void execute(Context ctx, String[] args) {
+        ctx.setShouldClose(true);
     }
 
 }

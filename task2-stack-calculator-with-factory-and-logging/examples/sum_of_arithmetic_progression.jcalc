@@ -5,7 +5,7 @@
 
 # ====== Parameters ===== #
 DEFINE FIRST 1
-DEFINE LAST 1.0
+DEFINE LAST 100
 DEFINE N 100
 
 
@@ -17,7 +17,6 @@ PUSH LAST
 PUSH N
 *
 /
-SQRT
 
 PRINT
 

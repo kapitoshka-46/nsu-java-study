@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import ru.nsu.ccfit.gerasimov2.a.jcalc.exception.UnknownCommandException;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.Command;
 
 public class Factory {
@@ -42,17 +43,23 @@ public class Factory {
         }
     }
 
-    private Command tryCreateCommand(String cmdName) {
+    /**
+     * 
+     * @param cmdName
+     * @return A calculator command
+     * @throws UnknownCommandException if no class in factory for {@code cmdName}
+     */
+    private Command tryCreateCommand(String cmdName) throws UnknownCommandException {
         String className = classMap.get(cmdName);
 
         if (className == null) {
-            throw new IllegalArgumentException("Unknown command: " + cmdName);
+            throw new UnknownCommandException(cmdName);
         }
 
         try {
             Class<?> clazz = Class.forName(className);
             if (!Command.class.isAssignableFrom(clazz)) {
-                throw new IllegalArgumentException("Class" + className + "does not implement Command interface");
+                throw new IllegalStateException("Class" + className + "does not implement Command interface");
             }
 
             // now we know that clazz has type Class<? extends command> then we can cast it

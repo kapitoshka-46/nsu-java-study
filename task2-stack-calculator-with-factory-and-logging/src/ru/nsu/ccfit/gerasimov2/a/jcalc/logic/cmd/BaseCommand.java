@@ -1,14 +1,13 @@
 package ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd;
 
-import java.lang.IllegalArgumentException;
-
+import ru.nsu.ccfit.gerasimov2.a.jcalc.exception.InvalidArgumentException;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 
 public abstract class BaseCommand implements Command {
-    public void validateArgs(String[] args, Integer number) {
+    public void validateArgs(String[] args, Integer number) throws InvalidArgumentException {
 
         if (args.length != number) {
-            throw new IllegalArgumentException("Expected " + (number - 1) + " arguments");
+            throw new InvalidArgumentException("Expected " + (number - 1) + " arguments");
         }
     }
 

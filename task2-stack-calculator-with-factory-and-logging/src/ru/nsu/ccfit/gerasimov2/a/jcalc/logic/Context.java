@@ -10,7 +10,7 @@ public class Context {
     private Memory memory;
     private Stack<Double> stack;
     public final PrintStream out;
-    private boolean isRunning = true;
+    private boolean shouldClose = false;
 
     public Context(PrintStream out) {
         this.out = out;
@@ -26,11 +26,11 @@ public class Context {
         return stack;
     }
 
-    public boolean isRunning() {
-        return isRunning;
+    public boolean shouldClose() {
+        return shouldClose;
     }
 
-    public void setRunning(boolean isRunning) {
-        this.isRunning = isRunning;
+    public void setShouldClose(boolean shouldClose) {
+        this.shouldClose = shouldClose;
     }
 }

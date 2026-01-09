@@ -2,7 +2,8 @@ package ru.nsu.ccfit.gerasimov2.a.jcalc.logic;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.lang.IllegalArgumentException;
+
+import ru.nsu.ccfit.gerasimov2.a.jcalc.exception.InvalidArgumentException;
 
 public class Memory {
     private Map<String, Double> varTable;
@@ -21,11 +22,11 @@ public class Memory {
 
     private void checkVarName(String name) {
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("Cannot create var with empty name");
+            throw new InvalidArgumentException("Cannot create var with empty name");
         }
         char first = name.charAt(0);
         if (Character.isDigit(first)) {
-            throw new IllegalArgumentException("The name of a var shouldn't start with digit");
+            throw new InvalidArgumentException("The name of a var shouldn't start with digit");
         }
 
     }
@@ -39,12 +40,12 @@ public class Memory {
      * 
      * @param name
      * @return Value of the var with this name
-     * @throws IllegalArgumentException if no var is defined with this name
+     * @throws InvalidArgumentException if no var is defined with this name
      */
-    public double getVar(String name) throws IllegalArgumentException {
+    public double getVar(String name) throws InvalidArgumentException {
         if (!varTable.containsKey(name)) {
             System.out.println("cannot find: " + name);
-            throw new IllegalArgumentException("Var " + name + " is not defined.");
+            throw new InvalidArgumentException("Var " + name + " is not defined.");
         }
         double x = varTable.get(name);
         return x;

@@ -9,12 +9,11 @@ public class SqrtCommand extends BaseCommand {
 
     @Override
     public void execute(Context ctx, String[] args) {
-        validateArgs(args, 1); // only cmdName becuse operands are on the stackls
+        validateArgs(args, 0);
         Stack<Double> stack = ctx.getStack();
 
         double x = stack.pop();
 
-        
         stack.push(Math.sqrt(x));
         System.out.println("sqrt(" + x + ")");
     }

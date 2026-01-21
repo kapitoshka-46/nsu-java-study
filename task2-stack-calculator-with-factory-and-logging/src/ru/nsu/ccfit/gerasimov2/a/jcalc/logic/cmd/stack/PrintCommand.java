@@ -7,7 +7,7 @@ public class PrintCommand extends BaseCommand {
 
     @Override
     public void execute(Context ctx, String[] args) {
-        validateArgs(args, 1);
+        validateArgs(args, 0);
         var stack = ctx.getStack();
         ctx.out.println(stack.isEmpty() ? "" : stack.peek());
     }

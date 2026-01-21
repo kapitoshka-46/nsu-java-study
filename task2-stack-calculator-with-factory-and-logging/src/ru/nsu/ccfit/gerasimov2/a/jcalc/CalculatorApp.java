@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.Arrays;
 
 import ru.nsu.ccfit.gerasimov2.a.jcalc.exception.CalculatorException;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
@@ -88,7 +89,7 @@ public class CalculatorApp {
                 lineCount++;
                 String[] args = line.split(" "); // TODO: use better regexp
                 String cmdName = args[0];
-                tryExec(cmdName, args, factory);
+                tryExec(cmdName, Arrays.copyOfRange(args, 1, args.length), factory);
                 printPrompt();
             }
         } catch (IOException e) {

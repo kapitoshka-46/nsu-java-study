@@ -7,7 +7,7 @@ public class HelpCommand extends BaseCommand {
 
     @Override
     public void execute(Context ctx, String[] args) {
-        validateArgs(args, 1);
+        validateArgs(args, 0);
         ctx.out.println("help message");
     }
 

@@ -8,7 +8,7 @@ public class PopCommand extends BaseCommand {
 
     @Override
     public void execute(Context ctx, String[] args) {
-        validateArgs(args, 1); // only cmdName becuse operands are on the stack
+        validateArgs(args, 0);
         if (ctx.getStack().isEmpty()) {
             throw new StackUnderflowException("Stack underflow");
         }

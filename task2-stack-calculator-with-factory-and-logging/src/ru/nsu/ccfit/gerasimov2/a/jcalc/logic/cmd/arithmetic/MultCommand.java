@@ -9,7 +9,7 @@ public class MultCommand extends BaseCommand {
 
     @Override
     public void execute(Context ctx, String[] args) {
-        validateArgs(args, 1); // only cmdName becuse operands are on the stack
+        validateArgs(args, 0);
         Stack<Double> stack = ctx.getStack();
 
         double first = stack.pop();

@@ -8,7 +8,7 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.Command;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.arithmetic.*;
 
-public class ArtichmeticCmdTest {
+public class ArtithmeticCmdTest {
 
     private void test3(Command cmd, double a, double b, double expected) {
         Context ctx = new Context(System.out);

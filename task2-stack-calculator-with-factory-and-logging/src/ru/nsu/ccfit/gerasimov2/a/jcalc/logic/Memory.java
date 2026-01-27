@@ -22,7 +22,7 @@ public class Memory {
 
     private void checkVarName(String name) {
         if (name.isEmpty()) {
-            throw new InvalidArgumentException("Cannot create var with empty name");
+            throw new InvalidArgumentException("Cannot create var with empty name"); // TODO: make a WrongVariableNameException
         }
         char first = name.charAt(0);
         if (Character.isDigit(first)) {

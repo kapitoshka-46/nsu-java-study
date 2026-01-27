@@ -12,8 +12,8 @@ public class PlusCommand extends BaseCommand {
         validateArgs(args, 0);
         Stack<Double> stack = ctx.getStack();
 
-        double first = stack.pop();
         double second = stack.pop();
+        double first = stack.pop();
 
         stack.push(first + second);
         System.out.println("pushed " + first + " + " + second);

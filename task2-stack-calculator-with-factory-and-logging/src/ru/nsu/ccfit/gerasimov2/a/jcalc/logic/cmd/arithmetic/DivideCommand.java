@@ -12,8 +12,8 @@ public class DivideCommand extends BaseCommand {
         validateArgs(args, 0);
         Stack<Double> stack = ctx.getStack();
 
-        double first = stack.pop();
         double second = stack.pop();
+        double first = stack.pop();
 
         /* we use doubles -> dividing by zero is ok */
         stack.push(first / second);

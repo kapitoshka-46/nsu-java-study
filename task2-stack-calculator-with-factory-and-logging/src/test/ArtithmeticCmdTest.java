@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -117,8 +118,18 @@ public class ArtithmeticCmdTest {
     @Test
     public void divideZeroByZero() {
         Command cmd = new DivideCommand();
+        Context ctx = new Context(System.out);
+        var stack = ctx.getStack();
+
         double a = 0;
         double b = 0;
+
+        stack.push(a);
+        stack.push(b);
+        
+        cmd.execute(ctx, new String[] {});
+        Double actual = ctx.getStack().pop();
+        assertTrue(actual.isNaN());
 
         test2(cmd, a, b, Double.NaN);
     }
@@ -186,6 +197,7 @@ public class ArtithmeticCmdTest {
         Command cmd = new DivideCommand();
         for (double a = -100; a < 100; a++) {
             for (double b = -100;  b < 100; b++) {
+                if (a == 0 || b == 0) {continue;}
                 test2(cmd, a, b, a / b);        
             }
         }

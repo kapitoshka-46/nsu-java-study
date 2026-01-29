@@ -21,7 +21,7 @@ public abstract class BaseCommand implements Command {
      *  If token is a variable name - try to find it in memory
      * @param ctx
      * @param token variable or double literal
-     * @return value of tokent
+     * @return value of token
      */
     public Double parseToken(Context ctx, String token) {
         try {

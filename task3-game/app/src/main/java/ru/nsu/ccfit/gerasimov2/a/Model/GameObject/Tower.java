@@ -13,14 +13,6 @@ public class Tower extends DynamicGameObject{
     }
 
     private void shoot(GameObject target) {
-        if (!cooldown.IsReady()) {
-            return;
-        }
-
-        // spawn a bullet?
-        System.out.println("shoot");
-
-        cooldown.restart();
         
     }
 
@@ -31,7 +23,16 @@ public class Tower extends DynamicGameObject{
         //gm.getRandomEnemy()
         //gm.getBiggestEnemy()
         
-        shoot(null);
+        if (!cooldown.IsReady()) {
+            return;
+        }
+
+        // spawn a bullet?
+        // gm.SpawnObject(new Bellet(x, y))
+        System.out.println("shoot");
+
+        cooldown.restart();
+        
     }
     
 }

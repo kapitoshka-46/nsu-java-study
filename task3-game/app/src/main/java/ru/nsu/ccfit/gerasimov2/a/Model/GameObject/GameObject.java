@@ -1,8 +1,15 @@
-package ru.nsu.ccfit.gerasimov2.a.Model;
+package ru.nsu.ccfit.gerasimov2.a.Model.GameObject;
 
 public class GameObject {
+
+
     private float x;
     private float y;
+
+    public GameObject(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public float getX() {
         return x;

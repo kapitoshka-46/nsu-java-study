@@ -10,6 +10,15 @@ plugins {
     id 'application'
 }
 
+// Source - https://stackoverflow.com/a/73529132
+// Posted by douglas
+// Retrieved 2026-02-06, License - CC BY-SA 4.0
+// fixes problems: NoSuchElementException whet Scanner uses this
+run {
+    standardInput = System.in
+}
+
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()

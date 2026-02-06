@@ -12,9 +12,9 @@ public class Main {
 
         try {
             System.out.println("Reading file" + args[0]);
-            WordStatistics wordstat = new WordStatistics(args[0]);
+            WordStatistics wordstat = new WordStatistics(args[0]); /* open file and process */ 
             System.out.println("Saving statistics to " + args[1]);
-            wordstat.saveAsCSV(args[1]);
+            wordstat.saveAsCSV(args[1]);	/* saving resukts */
             System.out.println("Done!");
 
         } catch (IOException e) {

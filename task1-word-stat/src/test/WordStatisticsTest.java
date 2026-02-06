@@ -6,16 +6,26 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.File;
 import java.util.List;
 import org.junit.Test;
+
+import freq.WordStatistics;
 
 public class WordStatisticsTest {
     private int testCount = 0;
 
     private String CreateTextFile(String content) throws IOException {
-
+s
         final String filename = "test/cache/test_" + String.valueOf(++testCount) + ".txt";
-        try (FileWriter fileOut = new FileWriter(filename)) {
+        File file = new File(filename);
+
+        File parentDirectory = file.getParentFile();
+        if (parentDirectory != null && !parentDirectory.exists()) {
+            parentDirectory.mkdirs(); 
+        }
+
+        try (FileWriter fileOut = new FileWriter(file.getAbsoluteFile())) {
             fileOut.write(content);
         }
         return filename;

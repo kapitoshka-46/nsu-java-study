@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.gerasimov2.a.GemField;
+package ru.nsu.ccfit.gerasimov2.a.gem;
 
 // Default gem that destroyes when stayin in line of 3 with gems with the same color
 public class Match3Gem extends Gem {

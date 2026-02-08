@@ -8,6 +8,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'java'
 }
 
 // Source - https://stackoverflow.com/a/73529132
@@ -36,6 +37,12 @@ dependencies {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ru.nsu.ccfit.gerasimov2.a.App'
     }
 }
 

@@ -1,4 +1,6 @@
-package ru.nsu.ccfit.gerasimov2.a.GemField;
+package ru.nsu.ccfit.gerasimov2.a.gem;
+
+import ru.nsu.ccfit.gerasimov2.a.gemfield.GemField;
 
 public interface GemDestroyer {
 

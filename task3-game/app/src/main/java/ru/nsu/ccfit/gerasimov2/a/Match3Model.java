@@ -1,6 +1,6 @@
 package ru.nsu.ccfit.gerasimov2.a;
 
-import ru.nsu.ccfit.gerasimov2.a.GemField.GemField;
+import ru.nsu.ccfit.gerasimov2.a.gemfield.GemField;
 
 public abstract class Match3Model {
     GemField gemField;

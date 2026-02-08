@@ -1,4 +1,6 @@
-package ru.nsu.ccfit.gerasimov2.a.GemField;
+package ru.nsu.ccfit.gerasimov2.a.gem;
+
+import ru.nsu.ccfit.gerasimov2.a.gemfield.GemField;
 
 public class Match3GemDestroyer implements GemDestroyer{
 
@@ -6,7 +8,7 @@ public class Match3GemDestroyer implements GemDestroyer{
         Gem base = gemField.at(row, col);
         int cnt = 1;
 
-        for (int i = col + 1;  i < gemField.cols; i++) {
+        for (int i = col + 1;  i < gemField.cols(); i++) {
             Gem curr = gemField.at(row, i);
             if (curr.color != base.color) break;
             cnt++;
@@ -15,28 +17,18 @@ public class Match3GemDestroyer implements GemDestroyer{
     }
 
     void breakGemsOnLine(int row, int col, int count, GemField gemField) {
-    int sz = Math.min(col + count, gemField.cols);
+    int sz = Math.min(col + count, gemField.cols());
         for (int i = col; i < sz; i++) {
             Gem gem = gemField.at(row, i);
             gem.destroy();
         }
     }
 
-    static void printField(GemField gf) {
-        for (int i = 0; i < gf.rows; i++) {
-            for (int j = 0; j < gf.cols; j++) {
-                Gem gem = gf.at(i, j);
-                String gemView = gem.isDestroyed() ? "x" : Integer.valueOf(gem.color).toString();
-                System.out.print(gemView + " ");
-            }
-            System.out.println();
-        }
-    }
 
 
     void destroyGemsReal(GemField gemField) {
-        for (int i = 0; i < gemField.rows; i++) {
-            for (int j = 0; j < gemField.cols; j++) {
+        for (int i = 0; i < gemField.rows(); i++) {
+            for (int j = 0; j < gemField.cols(); j++) {
                 int cnt = countSame(i, j, gemField);
                 if (cnt >= 3)  {
                     breakGemsOnLine(i, j, cnt, gemField);
@@ -55,8 +47,8 @@ public class Match3GemDestroyer implements GemDestroyer{
     }
 
     boolean canDestroyReal(GemField gemField) {
-        for (int i = 0; i < gemField.rows; i++) {
-            for (int j = 0; j < gemField.cols; j++) {
+        for (int i = 0; i < gemField.rows(); i++) {
+            for (int j = 0; j < gemField.cols(); j++) {
                 int cnt = countSame(i, j, gemField);
                 if (cnt >= 3)  {
                     return true;

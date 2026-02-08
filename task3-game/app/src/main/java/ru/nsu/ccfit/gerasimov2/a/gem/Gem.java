@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.gerasimov2.a.GemField;
+package ru.nsu.ccfit.gerasimov2.a.gem;
 
 
 /* idea: create gems that should be destroyed multiple times! */
@@ -12,5 +12,5 @@ public abstract class Gem {
     } 
     public Gem(Gem other) {
         this.color = other.color;
-    };
+    }
 }

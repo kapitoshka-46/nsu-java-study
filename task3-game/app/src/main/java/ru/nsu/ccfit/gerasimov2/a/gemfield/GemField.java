@@ -1,5 +1,9 @@
-package ru.nsu.ccfit.gerasimov2.a.GemField;
+package ru.nsu.ccfit.gerasimov2.a.gemfield;
 
+import ru.nsu.ccfit.gerasimov2.a.gem.Gem;
+import ru.nsu.ccfit.gerasimov2.a.gem.GemDestroyer;
+import ru.nsu.ccfit.gerasimov2.a.gem.Match3Gem;
+import ru.nsu.ccfit.gerasimov2.a.gem.Match3GemDestroyer;
 
 /* идея проста
     1. Проходимся по каждому камушку и пытаемся построить линию либо вправо, 
@@ -15,11 +19,16 @@ package ru.nsu.ccfit.gerasimov2.a.GemField;
  */
 
 public class GemField {
-    final int rows;
-    final int cols;
-    boolean isTransposed = false;
-    GemDestroyer destroyer = new Match3GemDestroyer();
+    private final int rows;
+    private final int cols;
+    private boolean isTransposed = false;
+    private GemDestroyer destroyer = new Match3GemDestroyer();
+    private Gem[][] gems;
+    
 
+    public boolean isDestroyable() {
+        return destroyer.canDestroy(this);
+    }
     public int rows() {
         return isTransposed ? cols : rows;
     }
@@ -37,6 +46,16 @@ public class GemField {
         destroyer.destroyGems(this);
     }
 
+    public void regenerateGems() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (gems[i][j].isDestroyed()) {
+                    gems[i][j] = new Match3Gem((int) (Math.random() * 3)); // TODO: call the factory here
+                }
+            }
+        }
+    }
+
     boolean isValidMove(int row1, int col1, int row2, int col2) {
         return (row1 == row2 && Math.abs(col1 - col2) == 1
             || col1 == col2 && Math.abs(row1 - row2) == 1);
@@ -45,7 +64,7 @@ public class GemField {
         if (!isValidMove(row1, col1, row2, col2)) {
             return false;
         }
-        swap(row1, col1, row2, col2);
+        swap(row1, col1, row2, col2);  
         if (!destroyer.canDestroy(this)) {  
             swap(row1, col1, row2, col2);   /* wrong move -> swap back */
             return false;
@@ -66,8 +85,7 @@ public class GemField {
         }
     }
 
-    public Gem[][] gems;
-    
+
     public Gem at(int row, int col) {
         return isTransposed ?  gems[col][row] : gems[row][col];
     }

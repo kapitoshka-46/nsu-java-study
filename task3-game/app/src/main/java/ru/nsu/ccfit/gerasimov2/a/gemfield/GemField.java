@@ -36,7 +36,7 @@ public class GemField {
         return isTransposed ? rows : cols;
     }
 
-    void swap(int row1, int col1, int row2, int col2) {        
+    void swap(int row1, int col1, int row2, int col2) {     
         Gem tmp = gems[row1][col1];
         gems[row1][col1] = gems[row2][col2];
         gems[row2][col2] = tmp; 

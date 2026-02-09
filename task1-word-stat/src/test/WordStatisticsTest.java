@@ -8,15 +8,18 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.File;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 
+import freq.StatisticsSaver;
 import freq.WordStatistics;
 
 public class WordStatisticsTest {
     private int testCount = 0;
 
     private String CreateTextFile(String content) throws IOException {
-s
+
         final String filename = "test/cache/test_" + String.valueOf(++testCount) + ".txt";
         File file = new File(filename);
 
@@ -42,9 +45,10 @@ s
         String resultFilename = filename + ".csv";
 
         WordStatistics wordstat = new WordStatistics(filename);
-        wordstat.saveAsCSV(resultFilename);
+        StatisticsSaver saver = new StatisticsSaver(wordstat);
+        saver.saveAsCSV(resultFilename, true);
+        
         List<String> result = readAllLines(resultFilename);
-
         assertEquals(expected, result);
     }
 

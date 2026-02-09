@@ -1,6 +1,7 @@
 package freq;
 
 import java.io.IOException;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,11 +13,15 @@ public class Main {
 
         try {
             System.out.println("Reading file" + args[0]);
-            WordStatistics wordstat = new WordStatistics(args[0]); /* open file and process */ 
-            System.out.println("Saving statistics to " + args[1]);
-            wordstat.saveAsCSV(args[1]);	/* saving resukts */
-            System.out.println("Done!");
+            
+            WordStatistics wordStatistics = new WordStatistics(args[0]); /* open file and process */ 
 
+            StatisticsSaver saver = new StatisticsSaver(wordStatistics);
+            saver.saveAsCSV(args[1],true); /* saving resukts */
+            
+
+            System.out.println("Statistic is saved to " + args[1]);
+            System.out.println("Done!");
         } catch (IOException e) {
             System.out.println("Error: " + e.getLocalizedMessage());
         }

@@ -1,0 +1,24 @@
+package ru.nsu.ccfit.gerasimov2.a.game.gem;
+
+import ru.nsu.ccfit.gerasimov2.a.game.GemField;
+import ru.nsu.ccfit.gerasimov2.a.game.Position;
+
+public class BasicGem extends Gem {
+
+    private boolean isDestroyed = false;
+    
+    public BasicGem(int color) {
+        super(color);
+    }
+
+    @Override
+    public void destroyEfffect(GemField gemField, Position pos) {
+        isDestroyed = true;
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
+}

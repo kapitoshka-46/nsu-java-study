@@ -18,4 +18,9 @@ public class MinusCommand extends BaseCommand {
         System.out.println("pushed " + first + " - " + second);
 
     }
+    
+    @Override
+    public String getDescription() {
+        return "Substruction";
+    }
 }

@@ -21,7 +21,7 @@ public class ArtithmeticCmdTest {
             public void write(int arg0) throws IOException {}
         }       
         ));
-        Context ctx = new Context(System.out);
+        Context ctx = new Context(System.out, null);
         var stack = ctx.getStack();
         stack.push(a);
         stack.push(b);
@@ -35,13 +35,14 @@ public class ArtithmeticCmdTest {
         }       
         ));
         
-        Context ctx = new Context(System.out);
+        Context ctx = new Context(System.out, null);
         var stack = ctx.getStack();
         stack.push(x);
         cmd.execute(ctx, new String[] {});
         assertEquals(expected, ctx.getStack().pop(), 0.001f);
     }
 
+    
 
     @Test
     public void plus() {
@@ -118,7 +119,7 @@ public class ArtithmeticCmdTest {
     @Test
     public void divideZeroByZero() {
         Command cmd = new DivideCommand();
-        Context ctx = new Context(System.out);
+        Context ctx = new Context(System.out, null);
         var stack = ctx.getStack();
 
         double a = 0;

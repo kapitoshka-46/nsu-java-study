@@ -2,8 +2,10 @@ package ru.nsu.ccfit.gerasimov2.a.jcalc.logic.factory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import ru.nsu.ccfit.gerasimov2.a.jcalc.exception.UnknownCommandException;
@@ -30,10 +32,6 @@ public class Factory {
             for (String key : props.stringPropertyNames()) {
                 String className = props.getProperty(key);
                 if (!key.isEmpty() && !className.isEmpty()) {
-                    String keyLowerCase = key.toLowerCase();
-                    if (key != keyLowerCase) {
-                        classMap.put(keyLowerCase, className);
-                    }
                     classMap.put(key, className);
                 }
             }
@@ -50,7 +48,7 @@ public class Factory {
      * @throws UnknownCommandException if no class in factory for {@code cmdName}
      */
     private Command tryCreateCommand(String cmdName) throws UnknownCommandException {
-        String className = classMap.get(cmdName);
+        String className = classMap.get(cmdName.toUpperCase());
 
         if (className == null) {
             throw new UnknownCommandException(cmdName);
@@ -62,8 +60,7 @@ public class Factory {
                 throw new IllegalStateException("Class" + className + "does not implement Command interface");
             }
 
-            // now we know that clazz has type Class<? extends command> then we can cast it
-            // to Command safely
+            // now we know that clazz has type Class<? extends command> then we can cast it to Command safely
             return (Command) clazz.getDeclaredConstructor().newInstance();
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException(
@@ -91,5 +88,16 @@ public class Factory {
 
         return tryCreateCommand(cmdName);
 
+    }
+
+    public Collection<String> getCommandClassNames() {
+        return classMap.values();
+    }
+
+    public String getKeywordForClassName(String className) {
+        for (Entry<String, String> entry : classMap.entrySet()) {
+            if (entry.getValue() == className) return entry.getKey(); 
+        }
+        throw new IllegalArgumentException("Class " + className + " not in the factory");
     }
 }

@@ -14,7 +14,11 @@ public class PopCommand extends BaseCommand {
         }
         double x = ctx.getStack().pop();
         System.out.println(x);
+    }
 
+    @Override
+    public String getDescription() {
+        return "Pop element from the top of stack";
     }
 
 }

@@ -19,4 +19,9 @@ public class MultCommand extends BaseCommand {
         System.out.println("pushed " + first + " * " + second);
     }
 
+    @Override
+    public String getDescription() {
+        return "Multiplication";
+    }
+
 }

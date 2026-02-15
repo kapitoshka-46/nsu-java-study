@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.gerasimov2.a.jcalc;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,7 +19,8 @@ import org.apache.commons.cli.*;
 public class CalculatorApp {
     private BufferedReader in = null;
     private final PrintStream out = System.out;
-    private final Context ctx = new Context(out);
+    private final Factory factory;
+    private final Context ctx;
 
     /**
      * {@code true} if input file was provided. if {@code flase} then calculator
@@ -32,13 +34,14 @@ public class CalculatorApp {
     /** Current line in file. Do not use it if in calculator works in file mode */
     private int lineCount = 0;
 
-    public CalculatorApp(String[] args) throws ParseException, FileNotFoundException {
-        // TODO: reorgonize and simplify this shit ...
-        DefaultParser parser = new DefaultParser();
-        Options options = new Options();
-        options.addOption(null, "debug", false, "Debug mode");
-        CommandLine cmdLine = null;
-        cmdLine = parser.parse(options, args); // TODO: print help if parse excetption and close program
+    private void printHelpMessage(Options options) {
+        @SuppressWarnings("deprecation")
+        HelpFormatter formatter = new HelpFormatter(); 
+        String cmdLineSyntax = "jcalc [options] <input file (not neccessary)>"; // The usage statement
+        formatter.printHelp(100, cmdLineSyntax, "List of options:", options, "");
+    }
+
+    private void parsePositionalArguments(CommandLine cmdLine) throws FileNotFoundException {
         String[] posArgs = cmdLine.getArgs();
         if (posArgs.length == 0) {
             isFileMode = false;
@@ -46,6 +49,26 @@ public class CalculatorApp {
         } else {
             in = new BufferedReader(new InputStreamReader(new FileInputStream(posArgs[0])));
         }
+    }
+    private void setUp(String[] args) throws FileNotFoundException, ParseException { 
+        DefaultParser parser = new DefaultParser();
+        
+        Options options = new Options();
+        options.addOption("d", "debug", false, "Enable logging to file");
+        options.addOption("h", "help", false, "Print this message");
+        
+        CommandLine cmdLine = parser.parse(options, args); // TODO: print help if parse excetption and close program
+        if (cmdLine.hasOption("help")) {
+                printHelpMessage(options);
+                ctx.setShouldClose(isFileMode);
+        }
+        parsePositionalArguments(cmdLine);
+
+    }
+    public CalculatorApp(String[] args) throws FileNotFoundException, ParseException {
+        this.factory = new Factory();
+        this.ctx = new Context(out, factory);
+        setUp(args);
     }
 
     private void printError(String msg) {
@@ -79,12 +102,12 @@ public class CalculatorApp {
     }
 
     public void run() {
-        Factory factory = new Factory();
+        if (ctx.shouldClose()) return;
 
         try (BufferedReader reader = new BufferedReader(in)) {
+            printPrompt();
 
             String line;
-            printPrompt();
             while (!ctx.shouldClose() && (line = reader.readLine()) != null) {
                 lineCount++;
                 String[] args = line.split(" "); // TODO: use better regexp

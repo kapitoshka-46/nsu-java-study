@@ -18,4 +18,9 @@ public class SqrtCommand extends BaseCommand {
         System.out.println("sqrt(" + x + ")");
     }
 
+    @Override
+    public String getDescription() {
+        return "Square root";
+    }
+
 }

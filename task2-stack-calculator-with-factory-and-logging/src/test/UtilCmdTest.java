@@ -1,0 +1,62 @@
+package test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
+import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.Command;
+import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.DummyCommand;
+import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.ExitCommand;
+import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.HelpCommand;
+import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.factory.Factory;
+
+public class UtilCmdTest {
+    
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private final PrintStream originalErr = System.err;
+    private Context ctx;
+
+
+    @Before
+    public void setUpStreams() {
+        ctx = new Context(new PrintStream(outContent), new Factory());
+    }
+    
+    @After
+    public void restoreStreams() {
+    }
+
+    @Test
+    public void dummyCommand() {
+        Command cmd = new DummyCommand();
+        cmd.execute(ctx, null);        
+    }
+
+    @Test
+    public void exitCommand() {
+        Command cmd = new ExitCommand();
+        assertFalse(ctx.shouldClose());
+
+        cmd.execute(ctx, null);        
+        assertTrue(ctx.shouldClose());
+    }
+
+    @Test
+    public void helpCommand() {
+        Command cmd = new HelpCommand();
+        cmd.execute(ctx, null);        
+    }
+
+    
+
+    
+
+}

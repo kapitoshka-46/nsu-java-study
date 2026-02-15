@@ -13,4 +13,9 @@ public class PushCommand extends BaseCommand {
         ctx.getStack().push(x);
     }
 
+    @Override
+    public String getDescription() {
+        return "Push 1st operand (var or number) on a stack";
+    }
+
 }

@@ -18,5 +18,10 @@ public class DivideCommand extends BaseCommand {
         /* we use doubles -> dividing by zero is ok */
         stack.push(first / second);
     }
+    
+    @Override
+    public String getDescription() {
+        return "Division: 2nd elemmt from stack / 1st element";
+    }
 
 }

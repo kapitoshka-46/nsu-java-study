@@ -12,4 +12,9 @@ public class PrintCommand extends BaseCommand {
         ctx.out.println(stack.isEmpty() ? "" : stack.peek());
     }
 
+    @Override
+    public String getDescription() {
+        return "Print value on top of stack";
+    }
+
 }

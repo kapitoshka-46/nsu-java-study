@@ -16,8 +16,11 @@ public class PlusCommand extends BaseCommand {
         double first = stack.pop();
 
         stack.push(first + second);
-        System.out.println("pushed " + first + " + " + second);
+    }
 
+    @Override
+    public String getDescription() {
+        return "Sum";
     }
 
 }

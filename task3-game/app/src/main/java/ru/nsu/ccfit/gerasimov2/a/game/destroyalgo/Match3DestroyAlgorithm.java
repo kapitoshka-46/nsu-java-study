@@ -3,7 +3,6 @@ package ru.nsu.ccfit.gerasimov2.a.game.destroyalgo;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.monitor.GaugeMonitor;
 
 import ru.nsu.ccfit.gerasimov2.a.game.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.Position;

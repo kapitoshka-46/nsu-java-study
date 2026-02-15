@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd;
 
+
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 
 public interface Command {
@@ -11,4 +12,6 @@ public interface Command {
      *             args[1] is the first agrument
      */
     void execute(Context ctx, String[] args);
+
+    String getDescription();
 }

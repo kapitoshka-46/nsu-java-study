@@ -10,4 +10,9 @@ public class ExitCommand extends BaseCommand {
         ctx.setShouldClose(true);
     }
 
+    @Override
+    public String getDescription() {
+        return "Exit the program";
+    }
+
 }

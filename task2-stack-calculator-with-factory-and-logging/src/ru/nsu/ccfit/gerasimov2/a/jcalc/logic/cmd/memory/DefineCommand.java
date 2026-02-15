@@ -13,4 +13,9 @@ public class DefineCommand extends BaseCommand {
         ctx.getMemory().defineVar(varName, value);
     }
 
+    @Override
+    public String getDescription() {
+        return "Define a variable. 1st operand is a variable name, 2nd - its value";
+    }
+
 }

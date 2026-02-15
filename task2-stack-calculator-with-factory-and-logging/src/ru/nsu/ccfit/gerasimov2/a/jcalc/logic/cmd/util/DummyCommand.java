@@ -10,4 +10,9 @@ public class DummyCommand extends BaseCommand {
         // do nothing
     }
 
+    @Override
+    public String getDescription() {
+        return "Do nothing";
+    }
+
 }

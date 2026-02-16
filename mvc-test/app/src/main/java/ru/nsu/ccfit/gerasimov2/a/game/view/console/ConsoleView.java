@@ -1,0 +1,43 @@
+package ru.nsu.ccfit.gerasimov2.a.game.view.console;
+
+import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
+import ru.nsu.ccfit.gerasimov2.a.game.model.PlayerID;
+import ru.nsu.ccfit.gerasimov2.a.game.view.View;
+
+public class ConsoleView implements View {
+    private final char[] signs = { 'X', 'O', '#', '$' };
+
+    @Override
+    public void display(Model model) {
+        int rows = model.getRows();
+        int cols = model.getCols();
+        for (int i = 0; i < cols; i++) {
+            System.out.print("-----");
+        }
+        System.out.println();
+
+        for (int i = 0; i < rows; i++) {
+            System.out.print("| ");
+            for (int j = 0; j < cols; j++) {
+                if (!model.isOwned(i, j)) {
+                    System.out.print(' ');
+                } else {
+                    PlayerID owner = model.getCellOwner(i, j).get();
+                    if (owner.getID() > getMaximumPlayers()) {
+                        throw new IllegalStateException("Players more then maximum allowed");
+                    }
+                    System.out.print(signs[owner.getID()]);
+                }
+                System.out.print(" | ");
+
+            }
+            System.out.println();
+        }
+    }
+
+    @Override
+    public int getMaximumPlayers() {
+        return signs.length;
+    }
+
+}

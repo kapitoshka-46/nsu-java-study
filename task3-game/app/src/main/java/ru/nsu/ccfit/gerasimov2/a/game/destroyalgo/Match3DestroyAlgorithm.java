@@ -3,17 +3,13 @@ package ru.nsu.ccfit.gerasimov2.a.game.destroyalgo;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import ru.nsu.ccfit.gerasimov2.a.game.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.Position;
 import ru.nsu.ccfit.gerasimov2.a.game.gem.Gem;
 
-public class Match3DestroyAlgorithm implements DestroyAlgorithm{
+public class Match3DestroyAlgorithm implements DestroyAlgorithm {
 
-    private boolean isDestroyable = true;    
-
-    public Match3DestroyAlgorithm() {
-    }
+    private boolean isDestroyable = true;
 
     public List<Position> getPositionsToDestroy(GemField gemField) {
         List<Position> horizontal = getRealGemsToDestroy(gemField);
@@ -21,17 +17,24 @@ public class Match3DestroyAlgorithm implements DestroyAlgorithm{
         gemField.transpose();
         List<Position> vertical = getRealGemsToDestroy(gemField);
         gemField.transpose();
+        for (Position position : vertical) {
+            // transpose indexes back
+            var row = position.getRow();
+            var col = position.getCol();
+            position.setRow(col);
+            position.setCol(row);
+        }
 
-        horizontal.addAll(vertical);]
+        horizontal.addAll(vertical);
         return horizontal;
 
     }
+
     private List<Position> getRealGemsToDestroy(GemField gemField) {
         final int rows = gemField.getRows();
         final int cols = gemField.getCols();
 
         List<Position> gemsToDestroy = new ArrayList<Position>();
-
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols;) {
@@ -50,7 +53,6 @@ public class Match3DestroyAlgorithm implements DestroyAlgorithm{
         return gemsToDestroy;
     }
 
-
     private List<Position> collectSameColorOnRow(GemField gemField, Gem baseGem, Position basePos) {
         final int baseRow = basePos.getRow();
         final int baseCol = basePos.getCol();
@@ -62,14 +64,11 @@ public class Match3DestroyAlgorithm implements DestroyAlgorithm{
             Gem currGem = gemField.at(currPos);
             if (currGem.color == baseGem.color) {
                 sameColor.add(currPos);
-            }
-            else {
+            } else {
                 break;
             }
         }
         return sameColor;
     }
-
-    
 
 }

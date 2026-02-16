@@ -3,11 +3,11 @@ package ru.nsu.ccfit.gerasimov2.a.game.gem;
 import ru.nsu.ccfit.gerasimov2.a.game.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.Position;
 
-public class BasicGem extends Gem {
+public class DefaultGem extends Gem {
 
     private boolean isDestroyed = false;
     
-    public BasicGem(int color) {
+    public DefaultGem(int color) {
         super(color);
     }
 

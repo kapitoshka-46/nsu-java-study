@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.gerasimov2.a.game.Gem;
+package ru.nsu.ccfit.gerasimov2.a.game.gem;
 
 import ru.nsu.ccfit.gerasimov2.a.game.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.Position;
@@ -21,6 +21,7 @@ public class BombGem extends Gem{
 
     @Override
     public void destroyEfffect(GemField gemField, Position pos) {
+        if (isDestroyed) return;
         isDestroyed = true;
 
         int row = pos.getRow();

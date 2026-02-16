@@ -42,11 +42,11 @@ java {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'ru.nsu.ccfit.gerasimov2.a.App'
+        attributes 'Main-Class': 'ru.nsu.ccfit.gerasimov2.a.game.App'
     }
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'ru.nsu.ccfit.gerasimov2.a.App'
+    mainClass = 'ru.nsu.ccfit.gerasimov2.a.game.App'
 }

@@ -7,11 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.logging.Logger;
 
+import ru.nsu.ccfit.gerasimov2.a.jcalc.LogUtil;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.exception.UnknownCommandException;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.Command;
 
 public class Factory {
+    static Logger LOGGER = LogUtil.getLogger(Factory.class.getSimpleName());;
+
+
     private Map<String, String> classMap = new HashMap<>();
 
     public Factory() {
@@ -21,11 +26,10 @@ public class Factory {
     private void loadClasses() {
         try (InputStream is = Factory.class.getResourceAsStream("CommandList.properties")) {
             if (is == null) {
-                throw new IllegalStateException(
-                        "Configuration file 'CommandList.properties' was not founded in pacgake "
-                                + Factory.class.getPackageName());
+                throw new IllegalStateException("Configuration file 'CommandList.properties' was not founded in pacgake " + Factory.class.getPackageName());
             }
 
+            LOGGER.info("Load factory properties");
             Properties props = new Properties();
             props.load(is);
 
@@ -48,20 +52,18 @@ public class Factory {
      * @throws UnknownCommandException if no class in factory for {@code cmdName}
      */
     private Command tryCreateCommand(String cmdName) throws UnknownCommandException {
+        LOGGER.fine("Creating command: " + cmdName);
         String className = classMap.get(cmdName.toUpperCase());
 
-        if (className == null) {
-            throw new UnknownCommandException(cmdName);
-        }
-
+        if (className == null) throw new UnknownCommandException(cmdName);
         try {
             Class<?> clazz = Class.forName(className);
-            if (!Command.class.isAssignableFrom(clazz)) {
-                throw new IllegalStateException("Class" + className + "does not implement Command interface");
-            }
+            LOGGER.fine("Get associated class: " + clazz.getName());
+            
+            if (!Command.class.isAssignableFrom(clazz)) throw new IllegalStateException("Class" + className + "does not implement Command interface");
 
             // now we know that clazz has type Class<? extends command> then we can cast it to Command safely
-            return (Command) clazz.getDeclaredConstructor().newInstance();
+            return (Command) clazz.getDeclaredConstructor().newInstance(); 
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException(
                     "Comand '" + cmdName + "' is in config, but class " + className + " does not exist");

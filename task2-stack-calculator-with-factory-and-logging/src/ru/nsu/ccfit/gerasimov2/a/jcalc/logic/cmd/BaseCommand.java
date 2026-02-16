@@ -5,6 +5,8 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 
 public abstract class BaseCommand implements Command {
 
+
+
     /**
      * @param args arguments for command
      * @param number number of arguments

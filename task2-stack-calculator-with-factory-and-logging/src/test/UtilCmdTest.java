@@ -19,9 +19,6 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.factory.Factory;
 public class UtilCmdTest {
     
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-    private final PrintStream originalErr = System.err;
     private Context ctx;
 
 

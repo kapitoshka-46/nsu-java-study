@@ -1,31 +1,48 @@
 package ru.nsu.ccfit.gerasimov2.a.jcalc;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.cli.ParseException;
+
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
-import org.apache.commons.cli.ParseException;
 
 public class Main {
-    public static void main(String[] args) {
-        Logger log = Logger.getLogger(Main.class.getPackageName());
 
-        log.info("Start program");
+    static Logger LOGGER;
+    static {
+        // try(FileInputStream ins = new FileInputStream("/home/kapiuser/Documents/GitHub/nsu-java-study/task2-stack-calculator-with-factory-and-logging/src/ru/nsu/ccfit/gerasimov2/a/jcalc/logconf.properties")){
+        try (InputStream ins = Main.class.getResourceAsStream("log.properties")){
+            LogManager.getLogManager().readConfiguration(ins);
+            LOGGER = Logger.getLogger(Main.class.getSimpleName());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        LOGGER.info("========Start program========");
         try {
-            CalculatorApp app = new CalculatorApp(args); // TODO: Let calculator parse args
+            CalculatorApp app = new CalculatorApp(args);
             
             app.run();
         } catch (ParseException e) {
             System.out.println("Failed to parse command line options: " + e);
             System.out.println("type --help for help options");
-
-            log.info(Level.INFO, "Bad parsing: ", e);
+            LOGGER.log(Level.SEVERE, "Bad parsing", e);
         } catch (FileNotFoundException e) { 
-            log.error("File not found: ", e);
+            System.out.println("Error: " + e.getLocalizedMessage());
+            LOGGER.log(Level.WARNING, "File not found: ", e);
+        } catch (Throwable e) {
+            LOGGER.log(Level.SEVERE, "Got unexpected throwable", e);
         }
 
-        log.info("End program");
+        LOGGER.info("========End program========");
     }
 
 }

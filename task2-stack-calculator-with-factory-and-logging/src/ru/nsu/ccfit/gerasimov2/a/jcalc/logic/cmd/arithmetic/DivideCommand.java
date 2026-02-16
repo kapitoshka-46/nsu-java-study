@@ -2,15 +2,15 @@ package ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.arithmetic;
 
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.BaseCommand;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
+import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Stack;
 
-import java.util.Stack;
 
 public class DivideCommand extends BaseCommand {
 
     @Override
     public void execute(Context ctx, String[] args) {
         validateArgs(args, 0);
-        Stack<Double> stack = ctx.getStack();
+        Stack stack = ctx.getStack();
 
         double second = stack.pop();
         double first = stack.pop();

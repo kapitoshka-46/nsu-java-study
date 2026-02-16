@@ -9,8 +9,6 @@ import ru.nsu.ccfit.gerasimov2.a.game.gem.Gem;
 
 public class Match3DestroyAlgorithm implements DestroyAlgorithm {
 
-    private boolean isDestroyable = true;
-
     public List<Position> getPositionsToDestroy(GemField gemField) {
         List<Position> horizontal = getRealGemsToDestroy(gemField);
 
@@ -69,6 +67,11 @@ public class Match3DestroyAlgorithm implements DestroyAlgorithm {
             }
         }
         return sameColor;
+    }
+
+    @Override
+    public boolean isDestroyable(GemField gemField) {
+        return !getPositionsToDestroy(gemField).isEmpty();
     }
 
 }

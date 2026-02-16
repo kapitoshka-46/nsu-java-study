@@ -1,8 +1,7 @@
 package ru.nsu.ccfit.gerasimov2.a.game;
 
-import ru.nsu.ccfit.gerasimov2.a.game.destroyalgo.DestroyAlgorithm;
-import ru.nsu.ccfit.gerasimov2.a.game.factory.GemFactory;
-import ru.nsu.ccfit.gerasimov2.a.game.gem.Gem;
+import ru.nsu.ccfit.gerasimov2.a.game.model.factory.GemFactory;
+import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 
 public class GemField {
     private Gem[][] field;
@@ -20,7 +19,7 @@ public class GemField {
         init();
     }
 
-    boolean swapGems(Position gem1, Position gem2) {
+    public boolean swapGems(Position gem1, Position gem2) {
         int row1 = isTransposed ? gem1.getCol() : gem1.getRow();
         int col1 = isTransposed ? gem1.getRow() : gem1.getCol();
 

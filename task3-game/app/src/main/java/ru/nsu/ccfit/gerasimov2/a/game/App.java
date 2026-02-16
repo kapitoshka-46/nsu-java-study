@@ -3,6 +3,8 @@
  */
 package ru.nsu.ccfit.gerasimov2.a.game;
 
+import ru.nsu.ccfit.gerasimov2.a.game.console.ConsoleController;
+
 public class App {
 
     public static void main(String[] args) {

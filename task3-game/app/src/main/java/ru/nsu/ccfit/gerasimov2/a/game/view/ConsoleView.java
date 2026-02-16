@@ -1,10 +1,12 @@
-package ru.nsu.ccfit.gerasimov2.a.game;
+package ru.nsu.ccfit.gerasimov2.a.game.view;
 
 import java.time.Duration;
 
-import ru.nsu.ccfit.gerasimov2.a.game.gem.Gem;
+import ru.nsu.ccfit.gerasimov2.a.game.model.GemField;
+import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
+import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 
-public class ConsoleView {
+public class ConsoleView implements View {
     private void sleep(Duration duration) {
         try {
             Thread.sleep(duration);
@@ -13,7 +15,8 @@ public class ConsoleView {
         }
     }
 
-    public void drawGemField(GemField gemField) {
+    public void drawGemField(Model model) {
+        GemField gemField = model.getGemField();
         System.out.print("    ");
         for (int i = 0; i < gemField.getCols(); i++) {
             System.out.printf("%d ", i);
@@ -36,8 +39,9 @@ public class ConsoleView {
 
     }
 
-    public void drawScore() {
-        System.err.println("no scoree support");
-        return;
+    @Override
+    public void drawScore(int score) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'drawScore'");
     }
 }

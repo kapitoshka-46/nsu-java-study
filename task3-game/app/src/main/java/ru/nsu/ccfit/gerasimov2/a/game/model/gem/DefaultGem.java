@@ -1,7 +1,7 @@
-package ru.nsu.ccfit.gerasimov2.a.game.gem;
+package ru.nsu.ccfit.gerasimov2.a.game.model.gem;
 
-import ru.nsu.ccfit.gerasimov2.a.game.GemField;
-import ru.nsu.ccfit.gerasimov2.a.game.Position;
+import ru.nsu.ccfit.gerasimov2.a.game.model.GemField;
+import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
 
 public class DefaultGem extends Gem {
 

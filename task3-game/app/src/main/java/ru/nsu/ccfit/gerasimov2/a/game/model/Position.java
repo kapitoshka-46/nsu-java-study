@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.gerasimov2.a.game;
+package ru.nsu.ccfit.gerasimov2.a.game.model;
 
 public class Position {
     private int row;

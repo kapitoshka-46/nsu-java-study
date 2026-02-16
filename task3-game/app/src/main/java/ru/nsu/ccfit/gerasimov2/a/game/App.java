@@ -3,7 +3,7 @@
  */
 package ru.nsu.ccfit.gerasimov2.a.game;
 
-import ru.nsu.ccfit.gerasimov2.a.game.console.ConsoleController;
+import ru.nsu.ccfit.gerasimov2.a.game.controller.ConsoleController;
 
 public class App {
 

@@ -1,7 +1,7 @@
-package ru.nsu.ccfit.gerasimov2.a.game.factory;
+package ru.nsu.ccfit.gerasimov2.a.game.model.factory;
 
-import ru.nsu.ccfit.gerasimov2.a.game.gem.DefaultGem;
-import ru.nsu.ccfit.gerasimov2.a.game.gem.Gem;
+import ru.nsu.ccfit.gerasimov2.a.game.model.gem.DefaultGem;
+import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 
 public class GemFactory {
     private int maxColor;

@@ -1,4 +1,4 @@
-package ru.nsu.ccfit.gerasimov2.a.game;
+package ru.nsu.ccfit.gerasimov2.a.game.model;
 
 import ru.nsu.ccfit.gerasimov2.a.game.model.factory.GemFactory;
 import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;

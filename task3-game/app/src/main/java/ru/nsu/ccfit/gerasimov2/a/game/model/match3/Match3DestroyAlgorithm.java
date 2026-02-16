@@ -1,11 +1,12 @@
-package ru.nsu.ccfit.gerasimov2.a.game.destroyalgo;
+package ru.nsu.ccfit.gerasimov2.a.game.model.match3;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.nsu.ccfit.gerasimov2.a.game.GemField;
-import ru.nsu.ccfit.gerasimov2.a.game.Position;
-import ru.nsu.ccfit.gerasimov2.a.game.gem.Gem;
+import ru.nsu.ccfit.gerasimov2.a.game.model.DestroyAlgorithm;
+import ru.nsu.ccfit.gerasimov2.a.game.model.GemField;
+import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
+import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 
 public class Match3DestroyAlgorithm implements DestroyAlgorithm {
 

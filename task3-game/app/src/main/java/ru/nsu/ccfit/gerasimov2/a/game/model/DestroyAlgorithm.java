@@ -1,9 +1,6 @@
-package ru.nsu.ccfit.gerasimov2.a.game.destroyalgo;
+package ru.nsu.ccfit.gerasimov2.a.game.model;
 
 import java.util.List;
-
-import ru.nsu.ccfit.gerasimov2.a.game.GemField;
-import ru.nsu.ccfit.gerasimov2.a.game.Position;
 
 public interface DestroyAlgorithm {
     List<Position> getPositionsToDestroy(GemField gemField);

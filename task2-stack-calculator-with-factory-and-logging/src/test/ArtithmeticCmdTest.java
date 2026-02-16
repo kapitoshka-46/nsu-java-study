@@ -15,7 +15,7 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.Command;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.arithmetic.*;
 
-public class ArtithmeticCmdTest {
+public class ArtithmeticCmdTest extends BaseTest {
 
     private void test2args(Command cmd, double a, double b, double expected) {
         System.setOut(new PrintStream(new OutputStream() {

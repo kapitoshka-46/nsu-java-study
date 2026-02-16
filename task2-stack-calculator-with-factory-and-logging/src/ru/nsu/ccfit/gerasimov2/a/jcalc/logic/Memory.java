@@ -20,7 +20,6 @@ public class Memory {
     public void defineVar(String name, double value) {
         LOGGER.fine("Defining " + name + " = " + String.valueOf(value) );
         checkVarName(name);
-        System.out.println(name + " = " + value);
         varTable.put(name, value);
     }
 

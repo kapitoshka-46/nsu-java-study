@@ -93,7 +93,8 @@ public class CalculatorApp {
     }
 
     private void tryExec(String cmdName, String[] args, Factory factory) {
-        LOGGER.fine("Executing command: " + cmdName + " with arguments " + args.toString());
+
+        LOGGER.fine("Executing command: " + cmdName);
         
         if (cmdName.isEmpty()) {
             return;
@@ -127,11 +128,12 @@ public class CalculatorApp {
 
             String line;
             while (!ctx.shouldClose() && (line = reader.readLine()) != null) {
-                printPrompt();
                 lineCount++;
+                LOGGER.finer(line);
                 String[] args = line.split(" "); // TODO: use better regexp
                 String cmdName = args[0];
                 tryExec(cmdName, Arrays.copyOfRange(args, 1, args.length), factory);
+                printPrompt();
             }
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Get IOException while opening " + (isFileMode ? "input file" : "stdin"), e);

@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-public class MemoryTest {
+public class MemoryTest extends BaseTest {
 
     private void testVar(String name, Double value) {
     

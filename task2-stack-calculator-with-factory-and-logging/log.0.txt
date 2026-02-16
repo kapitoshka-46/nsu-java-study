@@ -1,0 +1,10 @@
+[2026-02-16 21:42:32] [INFO] <Factory> Load factory properties  
+[2026-02-16 21:42:32] [INFO] <Context> Initialize Context  
+[2026-02-16 21:42:32] [INFO] <Memory> Initialize Memory  
+[2026-02-16 21:42:32] [INFO] <Context> shouldClose was set  
+[2026-02-16 21:42:32] [INFO] <Factory> Load factory properties  
+[2026-02-16 21:42:32] [INFO] <Context> Initialize Context  
+[2026-02-16 21:42:32] [INFO] <Memory> Initialize Memory  
+[2026-02-16 21:42:32] [INFO] <Factory> Load factory properties  
+[2026-02-16 21:42:32] [INFO] <Context> Initialize Context  
+[2026-02-16 21:42:32] [INFO] <Memory> Initialize Memory  

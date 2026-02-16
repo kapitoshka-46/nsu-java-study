@@ -16,7 +16,7 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.ExitCommand;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.HelpCommand;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.factory.Factory;
 
-public class UtilCmdTest {
+public class UtilCmdTest extends BaseTest {
     
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private Context ctx;

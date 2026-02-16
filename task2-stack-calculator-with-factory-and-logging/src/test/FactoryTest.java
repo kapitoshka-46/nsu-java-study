@@ -13,7 +13,7 @@ import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.Command;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.factory.Factory;
 
-public class FactoryTest {
+public class FactoryTest extends BaseTest {
     
     Factory factory;
     Context ctx;

@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.gerasimov2.a.game.model;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface Model {
@@ -21,6 +22,10 @@ public interface Model {
      * @return
      */
     boolean isWinner(PlayerID player);
+
+    boolean isGameOver();
+
+    List<PlayerID> getWinners();
 
     /**
      * 

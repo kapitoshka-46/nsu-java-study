@@ -16,7 +16,7 @@ public abstract class Controller {
         this.model = model;
     }
 
-    public abstract void update();
+    public abstract void updateModel();
 
     public abstract void run();
 }

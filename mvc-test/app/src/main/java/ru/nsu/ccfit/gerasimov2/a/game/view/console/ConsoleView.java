@@ -1,5 +1,7 @@
 package ru.nsu.ccfit.gerasimov2.a.game.view.console;
 
+import java.util.List;
+
 import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.PlayerID;
 import ru.nsu.ccfit.gerasimov2.a.game.view.View;
@@ -38,6 +40,13 @@ public class ConsoleView implements View {
     @Override
     public int getMaximumPlayers() {
         return signs.length;
+    }
+
+    @Override
+    public void congrats(List<PlayerID> winners) {
+        for (PlayerID palyer : winners) {
+            System.out.println("Player " + palyer.getID() + " wins!");
+        }
     }
 
 }

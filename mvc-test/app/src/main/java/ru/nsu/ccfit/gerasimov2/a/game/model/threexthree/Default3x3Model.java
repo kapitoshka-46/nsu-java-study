@@ -15,7 +15,7 @@ public class Default3x3Model implements Model {
     private boolean isGameOver;
 
     public Default3x3Model() {
-        this.field = new PlayerID[3][3];
+        this.field = new PlayerID[rows][cols];
     }
 
     public boolean isGameOver() {
@@ -74,6 +74,8 @@ public class Default3x3Model implements Model {
         }
 
         winners = new ArrayList<PlayerID>();
+
+        // TODO: rewrite this for common case (not only 3x3 field)
 
         // because it is 3x3 model we can just check it manually
         // check 3 rows

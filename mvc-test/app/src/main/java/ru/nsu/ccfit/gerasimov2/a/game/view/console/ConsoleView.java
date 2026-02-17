@@ -13,13 +13,19 @@ public class ConsoleView implements View {
     public void display(Model model) {
         int rows = model.getRows();
         int cols = model.getCols();
+        System.out.print("  ");
+        for (int i = 0; i < cols; i++) {
+            System.out.printf("  %d ", i);
+        }
+        System.out.print("\n--");
         for (int i = 0; i < cols; i++) {
             System.out.print("-----");
         }
+
         System.out.println();
 
         for (int i = 0; i < rows; i++) {
-            System.out.print("| ");
+            System.out.printf("%d | ", i);
             for (int j = 0; j < cols; j++) {
                 if (!model.isOwned(i, j)) {
                     System.out.print(' ');

@@ -73,9 +73,11 @@ public class Match3Model extends Model {
                 gemField.destroyAt(pos);
             }
             notifyView(); /* showing destroyed field */
+        
             gemField.refillDestroyed(); /* generating new gems */
-            toDestroy = getPositionsToDestroy(); /* check again */
             notifyView(); /* showing new generated gems */
+
+            toDestroy = getPositionsToDestroy(); /* check again */
         }
     }
 }

@@ -1,20 +1,19 @@
-package ru.nsu.ccfit.gerasimov2.a.game.model.match3;
+package ru.nsu.ccfit.gerasimov2.a.game.model.strategy;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.nsu.ccfit.gerasimov2.a.game.model.DestroyAlgorithm;
 import ru.nsu.ccfit.gerasimov2.a.game.model.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
 import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 
-public class Match3DestroyAlgorithm implements DestroyAlgorithm {
+public class Match3DestroyStrategy implements DestroyStratagy {
 
     public List<Position> getPositionsToDestroy(GemField gemField) {
-        List<Position> horizontal = getRealGemsToDestroy(gemField);
+        List<Position> horizontal = implGetPositionToDestroy(gemField);
 
         gemField.transpose();
-        List<Position> vertical = getRealGemsToDestroy(gemField);
+        List<Position> vertical = implGetPositionToDestroy(gemField);
         gemField.transpose();
         for (Position position : vertical) {
             // transpose indexes back
@@ -25,11 +24,17 @@ public class Match3DestroyAlgorithm implements DestroyAlgorithm {
         }
 
         horizontal.addAll(vertical);
+
+        System.err.print("to destroy: ");
+        for (var pos : horizontal) {
+            System.err.print(pos.toString() + ' ');
+        }
+        System.err.println();
         return horizontal;
 
     }
 
-    private List<Position> getRealGemsToDestroy(GemField gemField) {
+    private List<Position> implGetPositionToDestroy(GemField gemField) {
         final int rows = gemField.getRows();
         final int cols = gemField.getCols();
 

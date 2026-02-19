@@ -4,7 +4,10 @@ public class Position {
     private int row;
     private int col;
     
-    
+    @Override
+    public String toString() {
+        return String.format("(%d, %d)",row, col);
+    }
 
     public Position(int row, int col) {
         if (col< 0) throw new IllegalArgumentException("Invalid col (negative): " + col);

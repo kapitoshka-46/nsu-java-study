@@ -1,71 +1,53 @@
 package ru.nsu.ccfit.gerasimov2.a.game.controller;
 
+import java.text.ParseException;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import ru.nsu.ccfit.gerasimov2.a.game.model.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
-
-import ru.nsu.ccfit.gerasimov2.a.game.model.match3.Match3Model;
-import ru.nsu.ccfit.gerasimov2.a.game.view.ConsoleView;
 import ru.nsu.ccfit.gerasimov2.a.game.view.View;
 
-public class ConsoleController {
-    private View view;
-    private Model model;
+public class ConsoleController extends Controller {
     private Scanner scanner;
     private boolean isRunning;
 
-    public ConsoleController() {
+    public ConsoleController(Model model, View view) {
+        super(model, view);
         this.isRunning = true;
         this.scanner = new Scanner(System.in);
-        this.view = new ConsoleView();
-        this.model = new Match3Model();
     }
 
-    private void closeResoursesAndQuit() {
-        isRunning = false;
-        scanner.close();
+    private void handleInput(Position p1, Position p2) {
+        boolean success = model.makeMove(p1, p2);
+        if (!success) {
+            view.message("Wrong move");
+        }
     }
 
     public void runGame() {
-        try {
-            view.drawGemField(model); /* show field at first time */
-            while (isRunning) {
-                List<Position> posToDestroy = model.getPositionsToDestroy();
-                if (posToDestroy.isEmpty()) {// TODO: create algo.isDestroyable and recompute it only when needed
-                    /* do swap */
-                    Position firstSelectedGem = readInputPosition();
-                    Position secondSelectedGem = readInputPosition();
-                    boolean swapSuccess = model.swapGems(firstSelectedGem, secondSelectedGem)
-                            && !model.isDestroyable();
-
-                    if (!swapSuccess) {
-                        System.out.println("Cannot swap gems. Try again");
-                        continue;
-                    }
-                } else {
-                    GemField gemField = model.getGemField();
-
-                    for (Position pos : posToDestroy) {
-                        gemField.at(pos).destroyEfffect(gemField, pos);
-                    }
-                    view.drawGemField(model); /* show broken gems before restoring */
-                    gemField.refillDestroyed();
-                }
-
-                view.drawGemField(model); /* anyway, show the field */
-
-            }
-        } catch (Exception e) { // TODO: catch onle needed exception
-            System.err.println("Got exception: " + e.getLocalizedMessage());
-            closeResoursesAndQuit();
+        while (isRunning) {
+            
+            model.step();
+            Position firstSelectedGem = readInputPosition();
+            Position secondSelectedGem = readInputPosition();
+            
+            handleInput(firstSelectedGem, secondSelectedGem);
         }
-
     }
 
+    /**
+     * Reading user input in foramt ROW [space] COL.
+     * @return User input
+     * @throws InputMismatchException  if the next token does not match the Integer regular expression, or is out of range
+     * @throws NoSuchElementException  if input is exhausted
+     * @throws IllegalStateException  if this scanner is closed
+     */
     private Position readInputPosition() {
         return new Position(scanner.nextInt(), scanner.nextInt());
+ 
     }
 }

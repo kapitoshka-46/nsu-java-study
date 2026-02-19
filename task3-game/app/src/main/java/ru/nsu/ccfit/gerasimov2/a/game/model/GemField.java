@@ -19,22 +19,16 @@ public class GemField {
         init();
     }
 
-    public boolean swapGems(Position gem1, Position gem2) {
+    public void swap(Position gem1, Position gem2) {
         int row1 = isTransposed ? gem1.getCol() : gem1.getRow();
         int col1 = isTransposed ? gem1.getRow() : gem1.getCol();
 
         int row2 = isTransposed ? gem2.getCol() : gem2.getRow();
         int col2 = isTransposed ? gem2.getRow() : gem2.getCol();
 
-        if (Math.abs(row1 - row2) > 1 || Math.abs(col1 - col2) > 1) {
-            return false; /* can swap only neighbours */
-        }
-
         Gem tmp = field[row1][col1];
         field[row1][col1] = field[row2][col2];
         field[row2][col2] = tmp;
-
-        return true;
     }
 
     public void setFactory(GemFactory gemFactory) {
@@ -47,6 +41,10 @@ public class GemField {
                 field[i][j] = gemFactory.newGem();
             }
         }
+    }
+
+    public void destroyAt(Position pos) {
+        field[pos.getRow()][pos.getCol()].destroyEfffect(this, pos);
     }
 
     public Gem at(int row, int col) {

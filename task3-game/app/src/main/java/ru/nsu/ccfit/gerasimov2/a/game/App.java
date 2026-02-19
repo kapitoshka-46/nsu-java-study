@@ -4,11 +4,13 @@
 package ru.nsu.ccfit.gerasimov2.a.game;
 
 import ru.nsu.ccfit.gerasimov2.a.game.controller.ConsoleController;
+import ru.nsu.ccfit.gerasimov2.a.game.model.Match3Model;
+import ru.nsu.ccfit.gerasimov2.a.game.view.ConsoleView;
 
 public class App {
 
     public static void main(String[] args) {
-        ConsoleController controller = new ConsoleController();
+        ConsoleController controller = new ConsoleController(new Match3Model(), new ConsoleView());
         controller.runGame();
     }
 }

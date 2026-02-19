@@ -27,7 +27,7 @@ public class BombGem extends Gem{
         int row = pos.getRow();
         int col = pos.getCol();
 
-        // calculaate rectangle borders
+        // calculate rectangle borders
         int left = Math.max(col - radius, 0);
         int right = Math.min(col + radius + 1, gemField.getCols());
 

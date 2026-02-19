@@ -49,11 +49,7 @@ public class ConsoleView extends View {
         for (String msg: messages) {
             System.out.println(msg);
         }
-    }
-
-    @Override
-    public void displayScore(int score) {
-        throw new UnsupportedOperationException("Unimplemented method 'drawScore'");
+        messages.clear();
     }
 
     @Override
@@ -67,8 +63,23 @@ public class ConsoleView extends View {
     }
 
     @Override
-    public void displayUserSelection(Position pos) {
+    public void setUserSelection(Position pos) {
         messages.add("Selected " + pos.toString());        
+    }
+
+    @Override
+    public void displayMessage(String msg) {
+        System.out.println(msg);
+    }
+
+    @Override
+    public void unsetAllUserSelections(Position pos) {
+        return; // do not need in console mode
+    }
+
+    @Override
+    public void unsetUserSelections(Position pos) {
+        return; // do not need in console mode
     }
 
     

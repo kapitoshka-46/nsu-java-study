@@ -1,12 +1,9 @@
 package ru.nsu.ccfit.gerasimov2.a.game.controller;
 
-import java.text.ParseException;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import ru.nsu.ccfit.gerasimov2.a.game.model.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
 import ru.nsu.ccfit.gerasimov2.a.game.view.View;
@@ -30,11 +27,11 @@ public class ConsoleController extends Controller {
 
     public void runGame() {
         while (isRunning) {
-            
             model.step();
             Position firstSelectedGem = readInputPosition();
             Position secondSelectedGem = readInputPosition();
-            
+
+            view.unsetAllUserSelections(secondSelectedGem);
             handleInput(firstSelectedGem, secondSelectedGem);
         }
     }
@@ -47,7 +44,20 @@ public class ConsoleController extends Controller {
      * @throws IllegalStateException  if this scanner is closed
      */
     private Position readInputPosition() {
-        return new Position(scanner.nextInt(), scanner.nextInt());
- 
+        while (true) {
+            String rowString = scanner.next();
+            String colString = scanner.next();
+            try {
+                Integer row = Integer.valueOf(rowString);
+                Integer col = Integer.valueOf(colString);
+                Position pos = new Position(row, col);
+
+                view.setUserSelection(pos);
+                return pos;
+            } catch (NumberFormatException e) {
+                view.displayMessage("You should type input as <ROW COL>. Try again");
+            }        
+        }
     }
 }
+

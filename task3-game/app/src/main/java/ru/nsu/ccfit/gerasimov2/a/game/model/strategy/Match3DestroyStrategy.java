@@ -62,7 +62,6 @@ public class Match3DestroyStrategy implements DestroyStratagy {
         final int baseCol = basePos.getCol();
 
         List<Position> sameColor = new ArrayList<>();
-        // row by row
         for (int i = baseCol; i < gemField.getCols(); i++) {
             Position currPos = new Position(baseRow, i);
             Gem currGem = gemField.at(currPos);

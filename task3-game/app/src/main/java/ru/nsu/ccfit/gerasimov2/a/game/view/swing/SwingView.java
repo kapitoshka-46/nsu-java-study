@@ -1,6 +1,7 @@
 package ru.nsu.ccfit.gerasimov2.a.game.view.swing;
 
-import javax.swing.JFrame;
+import java.time.Duration;
+
 
 import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
@@ -8,7 +9,9 @@ import ru.nsu.ccfit.gerasimov2.a.game.view.View;
 
 public class SwingView extends View {
 
-    private JFrame gameForm;
+    private GameForm gameForm;
+    Position currSelection;
+
     public SwingView(Model model) {
         super(model);
         this.gameForm = new GameForm("tri v ryad", 800,  800, model);
@@ -16,38 +19,28 @@ public class SwingView extends View {
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        gameForm.paintAll(gameForm.getGraphics());
+        try {
+            Thread.sleep(Duration.ofMillis(1000));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // interrupt our thread if other 
+        }
+        return;
     }
 
     @Override
     public void message(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'message'");
-    }
-
-    @Override
-    public void setUserSelection(Position pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setUserSelection'");
-    }
-
-    @Override
-    public void unsetAllUserSelections(Position pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unsetAllUserSelections'");
-    }
-
-    @Override
-    public void unsetUserSelections(Position pos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unsetUserSelections'");
+        System.err.println("message");
     }
 
     @Override
     public void displayMessage(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'displayMessage'");
+        System.err.println("display  msg");
+    }
+
+    @Override
+    public Position getSelection() {
+        throw new UnsupportedOperationException();
     }
 
 }

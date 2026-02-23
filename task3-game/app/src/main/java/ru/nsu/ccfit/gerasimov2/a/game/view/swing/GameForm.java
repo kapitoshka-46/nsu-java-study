@@ -1,5 +1,6 @@
 package ru.nsu.ccfit.gerasimov2.a.game.view.swing;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import javax.swing.JFrame;
@@ -11,7 +12,7 @@ import ru.nsu.ccfit.gerasimov2.a.game.view.View;
 public class GameForm extends JFrame {
     private int width, height;
     private Model model;
-
+    private GameArea gameArea;
     public GameForm(String winTitle, int width, int heght, Model model) {
         super(winTitle);
         this.width = width;
@@ -25,7 +26,8 @@ public class GameForm extends JFrame {
         this.setLayout(null);
         this.setVisible(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.add(new GameArea(new Rectangle(50, 50, 400, 400), model));
+        this.gameArea = new GameArea(new Rectangle(50, 50, 400, 400), model);
+        this.add(gameArea);
     }
 
 }

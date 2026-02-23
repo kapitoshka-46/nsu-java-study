@@ -2,18 +2,46 @@ package ru.nsu.ccfit.gerasimov2.a.game.view;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import ru.nsu.ccfit.gerasimov2.a.game.model.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
+import ru.nsu.ccfit.gerasimov2.a.game.model.PositionPair;
 import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 
 public class ConsoleView extends View {
     List<String> messages = new ArrayList<>();
-    
+    Scanner scanner = new Scanner(System.in);    
     public ConsoleView(Model model) {
         super(model);
+    }
+
+    /**
+     * Reading user input in foramt ROW [space] COL.
+     * @return User input
+     * @throws InputMismatchException  if the next token does not match the Integer regular expression, or is out of range
+     * @throws NoSuchElementException  if input is exhausted
+     * @throws IllegalStateException  if this scanner is closed
+     */
+    private Position readInputPosition() {
+
+        while (true) {
+            String rowString = scanner.next();
+            String colString = scanner.next();
+            try {
+                Integer row = Integer.valueOf(rowString);
+                Integer col = Integer.valueOf(colString);
+                Position pos = new Position(row, col);
+
+                return pos;
+            } catch (NumberFormatException e) {
+                displayMessage("You should type input as <ROW COL>. Try again");
+            }
+        }
     }
 
     private void sleep(Duration duration) {
@@ -44,8 +72,7 @@ public class ConsoleView extends View {
         }
         System.out.println("-------------------");
 
-        System.out.println("Messages:");
-        showMessagesAndDelete();        
+        System.out.println("Messages:");     
         sleep(Duration.ofSeconds(1)); /* sleep after drawing */
 
     }
@@ -67,23 +94,13 @@ public class ConsoleView extends View {
     }
 
     @Override
-    public void setUserSelection(Position pos) {
-        messages.add("Selected " + pos.toString());        
-    }
-
-    @Override
     public void displayMessage(String msg) {
         System.out.println(msg);
     }
 
     @Override
-    public void unsetAllUserSelections(Position pos) {
-        return; // do not need in console mode
-    }
-
-    @Override
-    public void unsetUserSelections(Position pos) {
-        return; // do not need in console mode
+    public Position getSelection() {
+        return readInputPosition();
     }
 
     

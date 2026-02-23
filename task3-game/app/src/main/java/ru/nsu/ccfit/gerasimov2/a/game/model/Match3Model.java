@@ -12,9 +12,10 @@ public class Match3Model extends Model {
     private GemField gemField;
     private DestroyStratagy destroyAlgo;
 
-    public Match3Model() {
-        gemField = new GemField(10, 10, new GemFactory(3));
+    public Match3Model(int rows, int cols, int maxCOlor) {
+        gemField = new GemField(rows, cols, new GemFactory(maxCOlor));
         destroyAlgo = new Match3DestroyStrategy();
+        
     }
 
     public List<Position> getPositionsToDestroy() {
@@ -36,6 +37,11 @@ public class Match3Model extends Model {
     @Override
     public Gem gemAt(Position pos) {
         return gemField.at(pos);
+    }
+
+    @Override
+    public Gem gemAt(int row, int col) {
+        return gemField.at(row, col);
     }
 
     private boolean isOutOfBounds(Position p1) {

@@ -9,6 +9,11 @@ public class Position {
         return String.format("(%d, %d)",row, col);
     }
 
+    public Position(Position other) {
+        this.row = other.row;
+        this.col = other.col;
+    }
+
     public Position(int row, int col) {
         if (col< 0) throw new IllegalArgumentException("Invalid col (negative): " + col);
         if (row < 0) throw new IllegalArgumentException("Invalid row (negative): " + row);

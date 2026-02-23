@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
+import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
 
@@ -34,8 +35,7 @@ public class GameArea extends JPanel {
         this.model = model;
         this.setBounds(bounds);
 
-
-        this.setBackground(Color.LIGHT_GRAY);
+        this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         
         this.gridCols = model.getGemField().getCols();
@@ -57,28 +57,45 @@ public class GameArea extends JPanel {
 
     private Color intToColor(int number) {
         switch (number) {
-            case 1: return Color.red;
-            case 2: return Color.green;
-            case 3: return Color.blue;
-            case 4: return  Color.yellow;
+            case 0: return Color.ORANGE;
+            case 1: return Color.RED;
+            case 2: return Color.GREEN;
+            case 3: return Color.BLUE;
+            case 4: return  Color.YELLOW;
             case 5: return Color.CYAN;
             case 6: return Color.MAGENTA;
             default:
-                return Color.ORANGE;
+                return Color.DARK_GRAY;
         }
     }
+
+    private void dumpToConsole() {
+        for (int row = 0; row < gridRows; row++) {
+            for (int col = 0; col < gridCols; col++) {
+                System.out.printf("%d ", model.gemAt(row, col).color);
+            }
+            System.out.println();
+        }
+        System.out.println("--------------");
+    }
+
 
     private void drawGemsOnField(Graphics g) {
         Color previous = g.getColor();
 
         for (int row = 0; row < gridRows; row++) {
-            for (int col = 0; col < gridCols; col++) {
-                g.setColor(intToColor(model.gemAt(new Position(row, col)).color));
-                g.fillRect(row * gridCellSize + 5, col * gridCellSize + 5, gridCellSize - 10, gridCellSize - 10);
-            
-            }
+            for (int col = 0; col < gridCols; col++) {          
+                Gem gem = model.gemAt(row, col);
+
+                g.setColor(intToColor(gem.color));
+                g.fillRect(col * gridCellSize + 5, row * gridCellSize + 5, gridCellSize - 10, gridCellSize - 10);
+                if (gem.isDestroyed()) {
+                    g.setColor(Color.BLACK);
+                    g.fillRect(col * gridCellSize + 10, row * gridCellSize + 10, gridCellSize - 20, gridCellSize - 20);
+                }
+            } 
         }
 
         g.setColor(previous);
-    }    
+    }
 }

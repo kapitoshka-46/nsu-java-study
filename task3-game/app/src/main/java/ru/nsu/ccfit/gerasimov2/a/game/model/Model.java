@@ -25,6 +25,8 @@ public abstract class Model implements Observable {
 
     abstract public Gem gemAt(Position pos);
 
+    public abstract Gem gemAt(int row, int col);
+
 
     // =============== Observer pattern methods ================= //
     @Override
@@ -44,7 +46,7 @@ public abstract class Model implements Observable {
 
 
     public abstract boolean makeMove(Position p1, Position p2);
-
+    
 
     public abstract void step();
 }

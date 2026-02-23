@@ -5,8 +5,13 @@ import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
 
 public abstract class View implements Observer {
-    public abstract void displayGemField(Model model);
-    public abstract void update(Object obj);
+    protected Model model;
+
+    public View(Model model) {
+        this.model = model;
+    }
+
+    public abstract void update();
     public abstract void message(String string);
     public abstract void setUserSelection(Position pos);
     public abstract void unsetAllUserSelections(Position pos);

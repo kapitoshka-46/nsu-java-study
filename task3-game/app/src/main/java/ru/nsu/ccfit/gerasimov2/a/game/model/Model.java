@@ -34,7 +34,7 @@ public abstract class Model implements Observable {
 
     @Override
     public void notifyObservers() {
-        for (Observer o : observers) { o.update(this); }
+        for (Observer o : observers) { o.update(); }
     }
 
     @Override

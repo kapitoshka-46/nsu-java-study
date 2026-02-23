@@ -13,7 +13,7 @@ public class Match3Model extends Model {
     private DestroyStratagy destroyAlgo;
 
     public Match3Model() {
-        gemField = new GemField(3, 4, new GemFactory(3));
+        gemField = new GemField(10, 10, new GemFactory(3));
         destroyAlgo = new Match3DestroyStrategy();
     }
 

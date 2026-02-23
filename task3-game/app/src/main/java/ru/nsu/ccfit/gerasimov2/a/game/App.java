@@ -3,14 +3,20 @@
  */
 package ru.nsu.ccfit.gerasimov2.a.game;
 
+import ru.nsu.ccfit.gerasimov2.a.game.controller.Controller;
 import ru.nsu.ccfit.gerasimov2.a.game.controller.ConsoleController;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Match3Model;
+import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.view.ConsoleView;
+import ru.nsu.ccfit.gerasimov2.a.game.view.swing.GameForm;
 
 public class App {
 
     public static void main(String[] args) {
-        ConsoleController controller = new ConsoleController(new Match3Model(), new ConsoleView());
-        controller.runGame();
+        // Controller controller = new ConsoleController(new Match3Model(), new ConsoleView());
+        // controller.runGame();
+        Model model = new Match3Model();
+        GameForm gf = new GameForm("dasda", 800, 800, model);
+        
     }
 }

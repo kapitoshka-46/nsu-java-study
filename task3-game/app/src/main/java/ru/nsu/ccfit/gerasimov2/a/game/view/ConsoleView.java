@@ -12,6 +12,10 @@ import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 public class ConsoleView extends View {
     List<String> messages = new ArrayList<>();
     
+    public ConsoleView(Model model) {
+        super(model);
+    }
+
     private void sleep(Duration duration) {
         try {
             Thread.sleep(duration);
@@ -53,8 +57,8 @@ public class ConsoleView extends View {
     }
 
     @Override
-    public void update(Object obj) {
-        displayGemField((Model)obj);
+    public void update() {
+        displayGemField(model);
     }
 
     @Override

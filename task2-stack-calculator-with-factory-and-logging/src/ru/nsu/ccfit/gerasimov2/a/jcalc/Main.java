@@ -1,6 +1,5 @@
 package ru.nsu.ccfit.gerasimov2.a.jcalc;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +15,6 @@ public class Main {
 
     static Logger LOGGER;
     static {
-        // try(FileInputStream ins = new FileInputStream("/home/kapiuser/Documents/GitHub/nsu-java-study/task2-stack-calculator-with-factory-and-logging/src/ru/nsu/ccfit/gerasimov2/a/jcalc/logconf.properties")){
         try (InputStream ins = Main.class.getResourceAsStream("log.properties")){
             LogManager.getLogManager().readConfiguration(ins);
             LOGGER = Logger.getLogger(Main.class.getSimpleName());
@@ -24,7 +22,6 @@ public class Main {
             e.printStackTrace();
         }
     }
-
     public static void main(String[] args) {
         LOGGER.info("========Start program========");
         try {

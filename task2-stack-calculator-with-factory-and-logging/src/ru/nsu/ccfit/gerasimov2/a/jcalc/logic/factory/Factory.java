@@ -57,13 +57,13 @@ public class Factory {
 
         if (className == null) throw new UnknownCommandException(cmdName);
         try {
-            Class<?> clazz = Class.forName(className);
-            LOGGER.fine("Get associated class: " + clazz.getName());
+            Class<?> cls = Class.forName(className);
+            LOGGER.fine("Get associated class: " + cls.getName());
             
-            if (!Command.class.isAssignableFrom(clazz)) throw new IllegalStateException("Class" + className + "does not implement Command interface");
+            if (!Command.class.isAssignableFrom(cls)) throw new IllegalStateException("Class" + className + "does not implement Command interface");
 
-            // now we know that clazz has type Class<? extends command> then we can cast it to Command safely
-            return (Command) clazz.getDeclaredConstructor().newInstance(); 
+            // now we know that clazz has type Class<? extends ommand> -> we can cast it to Command safely
+            return (Command) cls.getDeclaredConstructor().newInstance(); 
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException(
                     "Comand '" + cmdName + "' is in config, but class " + className + " does not exist");
@@ -83,7 +83,8 @@ public class Factory {
         if (cmdName == null || cmdName.isEmpty()) {
             throw new IllegalArgumentException("Command name cannot be null or empty");
         }
-        // if it is a comment
+
+        // check a comment
         if (cmdName.charAt(0) == '#') {
             cmdName = "#";
         }

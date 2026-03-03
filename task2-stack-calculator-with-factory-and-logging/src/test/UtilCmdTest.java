@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.Context;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.Command;
-import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.DummyCommand;
+import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.CommentCommand;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.ExitCommand;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.cmd.util.HelpCommand;
 import ru.nsu.ccfit.gerasimov2.a.jcalc.logic.factory.Factory;
@@ -33,7 +33,7 @@ public class UtilCmdTest extends BaseTest {
 
     @Test
     public void dummyCommand() {
-        Command cmd = new DummyCommand();
+        Command cmd = new CommentCommand();
         cmd.execute(ctx, null);        
     }
 

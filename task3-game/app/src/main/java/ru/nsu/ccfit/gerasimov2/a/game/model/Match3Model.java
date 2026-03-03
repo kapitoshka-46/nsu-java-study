@@ -53,20 +53,26 @@ public class Match3Model extends Model {
     }
 
     @Override
-    public boolean makeMove(Position p1, Position p2) {
+    public boolean setMove(Position p1, Position p2) {
         boolean isSame = p1.getCol() == p2.getCol() && p1.getRow() == p2.getRow();
 
-        boolean isNeghbours = Math.abs(p1.getRow() - p2.getRow()) <= 1 
-                               && Math.abs(p1.getCol() - p2.getCol()) <= 1; 
+        int diff_rows = Math.abs(p1.getRow() - p2.getRow());
+        int diff_cols = Math.abs(p1.getCol() - p2.getCol());
+        boolean isNeghbours = diff_rows <= 1 && diff_cols <= 1 && diff_cols + diff_rows != 2; 
         boolean isOutOfBounds = isOutOfBounds(p1) || isOutOfBounds(p2);
         
         if (isSame || !isNeghbours || isOutOfBounds) {
             return false;
         }
         
-        // now we sure that positions are correct and we allowed to swap gems 
+        // now we sure that positions are correct and we allowed to try to swap gems 
         gemField.swap(p1, p2);  
-        return true;
+        if (destroyAlgo.isDestroyable(gemField)) {
+            return true;
+        } else {
+            gemField.swap(p1, p2);  // undo move
+            return false;
+        }
     }
 
     @Override

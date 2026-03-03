@@ -10,14 +10,15 @@ import java.util.Scanner;
 import ru.nsu.ccfit.gerasimov2.a.game.model.GemField;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
-import ru.nsu.ccfit.gerasimov2.a.game.model.PositionPair;
 import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 
 public class ConsoleView extends View {
-    List<String> messages = new ArrayList<>();
-    Scanner scanner = new Scanner(System.in);    
+    List<String> messages;
+    Scanner scanner;    
     public ConsoleView(Model model) {
         super(model);
+        scanner = new Scanner(System.in);
+        messages = new ArrayList<>();
     }
 
     /**
@@ -76,17 +77,18 @@ public class ConsoleView extends View {
         sleep(Duration.ofSeconds(1)); /* sleep after drawing */
 
     }
-    private void showMessagesAndDelete() {
-        for (String msg: messages) {
-            System.out.println(msg);
-        }
-        messages.clear();
+
+    @Override
+    public void queryUpdate() {
+        sleep(Duration.ofMillis(800));
+        update();
     }
 
     @Override
     public void update() {
         displayGemField(model);
     }
+
 
     @Override
     public void message(String msg) {
@@ -99,8 +101,14 @@ public class ConsoleView extends View {
     }
 
     @Override
-    public Position getSelection() {
+    public Position getUserInputSelection() {
         return readInputPosition();
+    }
+
+    @Override
+    public void drawSelection(Position selectionPos) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setSelectionToDraw'");
     }
 
     

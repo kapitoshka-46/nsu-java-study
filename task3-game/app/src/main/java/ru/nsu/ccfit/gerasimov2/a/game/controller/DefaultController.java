@@ -15,43 +15,65 @@ public class DefaultController extends Controller {
 
     // DefaultController accept only 2 inputs!
     public void handleInput(Position userSelection) {
-        if (userSelection == null) { return; }
+        if (userSelection != null) {
+            System.out.println("======== got selection: " + userSelection);
+        }
+        if (userSelection == null) {
+            return;
+        }
         
-        if (firstSelection == userSelection) {  // gets the same selection
-            firstSelection = null;  // deselect
-            return;
-        }
-        if (secondSelection == userSelection) {
-            secondSelection = null; // deselect
-            return;
-        }
         
         if (firstSelection == null) {
-            firstSelection = userSelection;
-        } else if (secondSelection == null) {
-            secondSelection = userSelection;
-            boolean success = model.makeMove(firstSelection, secondSelection);
-            if (!success) {
+            selectFirst(userSelection);
+        } else if (userSelection.isSameAs(firstSelection)) { // gets the same selection
+            deselectFirst();
+            return;
+        } 
+        else if (secondSelection == null) {
+            selectSecond(userSelection);
+
+            boolean isMovable = model.setMove(firstSelection, secondSelection);
+            
+            if (isMovable) {
+                deselectFirst();
+                System.out.println("success!");
+                model.step();
+            } else {
                 view.message("Wrong move");
-            }
-
-            model.step(); // say model to process the move
-
-            firstSelection = null;  // reset selection
-            secondSelection = null;
-        }
-        else {
+            }            
+            deselectSecond();
+        } else {
             throw new IllegalStateException("Both selections are set but no move was done");
         }
+    }
+    
+    private void deselectFirst() {
+        firstSelection = null;
+        updateSelection(null);
+    }
+    private void selectFirst(Position selection) {
+        firstSelection = selection;
+        updateSelection(selection);
+    }
 
+    private void deselectSecond() {
+        secondSelection = null;
+    }
+    private void selectSecond(Position selection) {
+        secondSelection = selection;
+    }
+
+    private void updateSelection(Position pos) {
+            view.drawSelection(pos); // remove selection
+            view.update();  // show it immediatly 
+         
     }
 
     public void runGame() {
         model.step();
         while (isRunning) {
-            handleInput(view.getSelection());  
+            handleInput(view.getUserInputSelection());        
         }
-        
+
     }
 }
-

@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 
 import ru.nsu.ccfit.gerasimov2.a.game.model.Model;
 import ru.nsu.ccfit.gerasimov2.a.game.model.Position;
-import ru.nsu.ccfit.gerasimov2.a.game.view.View;
 
 public class GameForm extends JFrame {
     private int width, height;
@@ -21,13 +20,22 @@ public class GameForm extends JFrame {
         setSize(width, height);
         setLocationRelativeTo(null);
 
-        this.setResizable(false);
+        setResizable(false);
+        setBackground(Color.BLACK);
+        setLayout(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        getContentPane().setBackground(Color.BLACK);
 
-        this.setLayout(null);
-        this.setVisible(true);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.gameArea = new GameArea(new Rectangle(50, 50, 400, 400), model);
-        this.add(gameArea);
+        gameArea = new GameArea(new Rectangle(50, 50, 400, 400), model);
+        add(gameArea);
+
+        setVisible(true);
+    }
+    public Position getSelection() {
+        return gameArea.getSelection();
+    }
+    public void drawSelection(Position selectionPos) {
+        gameArea.setSelection(selectionPos);
     }
 
 }

@@ -10,22 +10,30 @@ import ru.nsu.ccfit.gerasimov2.a.game.view.View;
 public class SwingView extends View {
 
     private GameForm gameForm;
-    Position currSelection;
 
     public SwingView(Model model) {
         super(model);
         this.gameForm = new GameForm("tri v ryad", 800,  800, model);
     }
 
-    @Override
-    public void update() {
-        gameForm.paintAll(gameForm.getGraphics());
+    void sleep() {
         try {
-            Thread.sleep(Duration.ofMillis(1000));
+            Thread.sleep(Duration.ofMillis(600));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt(); // interrupt our thread if other 
         }
+    }
+
+    @Override
+    public void queryUpdate() {
+        sleep();
+        update();
         return;
+    }
+
+    @Override
+    public void update() {
+        gameForm.paintAll(gameForm.getGraphics());
     }
 
     @Override
@@ -39,8 +47,13 @@ public class SwingView extends View {
     }
 
     @Override
-    public Position getSelection() {
-        throw new UnsupportedOperationException();
+    public Position getUserInputSelection() {
+        return gameForm.getSelection();
+    }
+
+    @Override
+    public void drawSelection(Position selectionPos) {
+        gameForm.drawSelection(selectionPos);
     }
 
 }

@@ -4,6 +4,8 @@ package ru.nsu.ccfit.gerasimov2.a.game.view.swing;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -18,6 +20,10 @@ public class GameArea extends JPanel {
     private int gridCols;
     private int gridCellSize;
     private Model model;
+    private Position cachedSelection;
+    boolean isSelecting = false;
+    volatile Position selection = null;
+
 
     private void drawGrid(Graphics g) {
         for (int row = 0; row < gridRows; row++) {
@@ -45,14 +51,52 @@ public class GameArea extends JPanel {
         if (this.getBounds().width % gridCols != 0 || this.getBounds().height % gridRows != 0) {
             throw new IllegalArgumentException("Width and height должны быть кратны количеству клеток");
         }
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                System.out.printf("Get mouse event: (%d, %d)\n", e.getX(), e.getY());
+
+                int col = x / gridCellSize;
+                int row = y / gridCellSize;
+                System.out.printf("Calculated col=%d, row=%d\n", col, row);
+                if (row >= 0 && row < gridRows && col >= 0 && col < gridCols) {
+                    selection = new Position(row, col);
+                }
+            }
+        }); 
         
+    }
+    
+    public Position getSelection() {
+        Position pos = selection;
+        if (selection != null) {
+            selection = null;             
+        }
+        return pos;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        drawCachedSelection(g);
         drawGemsOnField(g);
         drawGrid(g);
+    }
+
+    private void drawCachedSelection(Graphics g) {
+        if (cachedSelection == null) { return; }
+
+        int row = cachedSelection.getRow();
+        int col = cachedSelection.getCol();
+
+        int x = col * gridCellSize;
+        int y = row * gridCellSize;
+        
+        g.setColor(Color.MAGENTA);
+        g.fillRect(x, y, gridCellSize, gridCellSize);
     }
 
     private Color intToColor(int number) {
@@ -67,16 +111,6 @@ public class GameArea extends JPanel {
             default:
                 return Color.DARK_GRAY;
         }
-    }
-
-    private void dumpToConsole() {
-        for (int row = 0; row < gridRows; row++) {
-            for (int col = 0; col < gridCols; col++) {
-                System.out.printf("%d ", model.gemAt(row, col).color);
-            }
-            System.out.println();
-        }
-        System.out.println("--------------");
     }
 
 
@@ -97,5 +131,9 @@ public class GameArea extends JPanel {
         }
 
         g.setColor(previous);
+    }
+
+    public void setSelection(Position selectionPos) {
+        this.cachedSelection = selectionPos;
     }
 }

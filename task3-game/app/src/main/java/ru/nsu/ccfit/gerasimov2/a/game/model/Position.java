@@ -37,7 +37,7 @@ public class Position {
     }
 
     public boolean isSameAs(Position other) {
-        return other.row == this.row && other.col == this.col;
+        return other != null && other.row == this.row && other.col == this.col;
     }
 
     

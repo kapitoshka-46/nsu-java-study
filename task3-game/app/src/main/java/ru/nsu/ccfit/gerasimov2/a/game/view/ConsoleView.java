@@ -15,6 +15,10 @@ import ru.nsu.ccfit.gerasimov2.a.game.model.gem.Gem;
 public class ConsoleView extends View {
     List<String> messages;
     Scanner scanner;    
+    Position selectionPos;
+    private boolean isStdinEmpty = true;
+
+
     public ConsoleView(Model model) {
         super(model);
         scanner = new Scanner(System.in);
@@ -29,9 +33,9 @@ public class ConsoleView extends View {
      * @throws IllegalStateException  if this scanner is closed
      */
     private Position readInputPosition() {
-
         while (true) {
             String rowString = scanner.next();
+            isStdinEmpty = false;
             String colString = scanner.next();
             try {
                 Integer row = Integer.valueOf(rowString);
@@ -40,7 +44,7 @@ public class ConsoleView extends View {
 
                 return pos;
             } catch (NumberFormatException e) {
-                displayMessage("You should type input as <ROW COL>. Try again");
+                popupMessage("You should type input as <ROW COL>");
             }
         }
     }
@@ -53,7 +57,7 @@ public class ConsoleView extends View {
         }
     }
 
-    public void displayGemField(Model model) {
+    public void displayGemField() {
         GemField gemField = model.getGemField();
         System.out.print("    ");
         for (int i = 0; i < gemField.getCols(); i++) {
@@ -65,17 +69,30 @@ public class ConsoleView extends View {
         for (int i = 0; i < gemField.getRows(); i++) {
             System.out.printf("%d | ", i);
             for (int j = 0; j < gemField.getCols(); j++) {
-                Gem gem = gemField.at(i, j);
-                System.out.print(gem.isDestroyed() ? 'x' : String.valueOf(gem.color));
-                System.out.print(' ');
+                Position currPos = new Position(i, j);
+                Gem gem = gemField.at(currPos);
+                printGem(gem, currPos, selectionPos);
+                System.out.print(" ");
             }
             System.out.println();
         }
         System.out.println("-------------------");
+    }
 
-        System.out.println("Messages:");     
-        sleep(Duration.ofSeconds(1)); /* sleep after drawing */
+    private void printGem(Gem gem, Position gemPos, Position selection) {
+        String DestroyFmt = "\033[1;40m";
+        String ResetFmt = "\033[m";
 
+        
+        String gemString;
+        if (gem.isDestroyed()) {
+            gemString = DestroyFmt + "x" + ResetFmt;
+        } else {
+            String colorFmt = "\033[0;3" + gem.color + "m";
+            String backgrundFmt =  gemPos.isSameAs(selection) ? "\033[7m" : "";
+            gemString = colorFmt + backgrundFmt + gem.color + ResetFmt; 
+        }
+        System.out.print(gemString);
     }
 
     @Override
@@ -85,11 +102,19 @@ public class ConsoleView extends View {
     }
 
     @Override
+    public void updateImmediatly() {
         displayClear();
         displayGemField();
         displayScore();
     }
 
+    private void displayClear() {
+        System.out.print("\033[2J\033[H");            
+    }
+
+    private void displayScore() {
+        System.out.println("Score: " + model.getScore());
+    }
 
     @Override
     public void message(String msg) {
@@ -103,13 +128,14 @@ public class ConsoleView extends View {
 
     @Override
     public Position getUserInputSelection() {
+        System.out.print("->  ");
+
         return readInputPosition();
     }
 
     @Override
     public void drawSelection(Position selectionPos) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setSelectionToDraw'");
+        this.selectionPos = selectionPos;       
     }
 
     

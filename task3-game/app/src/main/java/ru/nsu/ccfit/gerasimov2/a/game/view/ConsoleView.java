@@ -79,14 +79,15 @@ public class ConsoleView extends View {
     }
 
     @Override
-    public void queryUpdate() {
-        sleep(Duration.ofMillis(800));
-        update();
+    public void updateSuspended() {
+        sleep(Duration.ofMillis(1000));
+        updateImmediatly();
     }
 
     @Override
-    public void update() {
-        displayGemField(model);
+        displayClear();
+        displayGemField();
+        displayScore();
     }
 
 
@@ -96,7 +97,7 @@ public class ConsoleView extends View {
     }
 
     @Override
-    public void displayMessage(String msg) {
+    public void popupMessage(String msg) {
         System.out.println(msg);
     }
 

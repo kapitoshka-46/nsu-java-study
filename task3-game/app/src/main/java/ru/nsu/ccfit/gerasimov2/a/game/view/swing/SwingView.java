@@ -25,14 +25,14 @@ public class SwingView extends View {
     }
 
     @Override
-    public void queryUpdate() {
+    public void updateSuspended() {
         sleep();
-        update();
+        updateImmediatly();
         return;
     }
 
     @Override
-    public void update() {
+    public void updateImmediatly() {
         gameForm.paintAll(gameForm.getGraphics());
     }
 
@@ -42,7 +42,7 @@ public class SwingView extends View {
     }
 
     @Override
-    public void displayMessage(String string) {
+    public void popupMessage(String string) {
         System.err.println("display  msg");
     }
 

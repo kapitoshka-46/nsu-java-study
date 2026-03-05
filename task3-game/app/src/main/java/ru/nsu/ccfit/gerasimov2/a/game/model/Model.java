@@ -37,7 +37,7 @@ public abstract class Model implements Observable {
 
     @Override
     public void notifyObservers() {
-        for (Observer o : observers) { o.queryUpdate(); }
+        for (Observer o : observers) { o.updateSuspended(); }
     }
 
     @Override

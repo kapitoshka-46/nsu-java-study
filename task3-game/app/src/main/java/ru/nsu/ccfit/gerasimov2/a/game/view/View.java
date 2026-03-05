@@ -12,10 +12,10 @@ public abstract class View implements Observer {
         this.model = model;
     }
 
-    public abstract void queryUpdate();
-    public abstract void update();
+    public abstract void updateSuspended();
+    public abstract void updateImmediatly();
     public abstract void message(String string);;
-    public abstract void displayMessage(String string);
+    public abstract void popupMessage(String string);
     public abstract Position getUserInputSelection();
 
     public abstract void drawSelection(Position selectionPos);

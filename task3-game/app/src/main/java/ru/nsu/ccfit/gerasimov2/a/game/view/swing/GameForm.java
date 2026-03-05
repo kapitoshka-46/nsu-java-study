@@ -12,6 +12,8 @@ public class GameForm extends JFrame {
     private int width, height;
     private Model model;
     private GameArea gameArea;
+    private ScoreArea scoreArea;
+
     public GameForm(String winTitle, int width, int heght, Model model) {
         super(winTitle);
         this.width = width;
@@ -28,6 +30,9 @@ public class GameForm extends JFrame {
 
         gameArea = new GameArea(new Rectangle(50, 50, 400, 400), model);
         add(gameArea);
+
+        scoreArea = new ScoreArea(new Rectangle(450, 50, 200, 100), model);
+        add(scoreArea);
 
         setVisible(true);
     }

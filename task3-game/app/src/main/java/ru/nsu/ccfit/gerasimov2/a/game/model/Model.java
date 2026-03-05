@@ -17,15 +17,17 @@ public abstract class Model implements Observable {
 
 
     // ============= Model interface ================== //
-    abstract public List<Position> getPositionsToDestroy();
+    public abstract  List<Position> getPositionsToDestroy();
 
-    abstract public boolean isDestroyable();
+    public abstract  boolean isDestroyable();
 
-    abstract public GemField getGemField();
+    public abstract GemField getGemField();
 
-    abstract public Gem gemAt(Position pos);
+    public abstract Gem gemAt(Position pos);
 
     public abstract Gem gemAt(int row, int col);
+
+    public abstract int getScore(); 
 
     // =============== Observer pattern methods ================= //
     @Override

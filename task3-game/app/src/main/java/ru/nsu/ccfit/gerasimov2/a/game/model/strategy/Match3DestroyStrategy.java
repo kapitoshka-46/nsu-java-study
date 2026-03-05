@@ -24,12 +24,6 @@ public class Match3DestroyStrategy implements DestroyStratagy {
         }
 
         horizontal.addAll(vertical);
-
-        System.err.print("to destroy: ");
-        for (var pos : horizontal) {
-            System.err.print(pos.toString() + ' ');
-        }
-        System.err.println();
         return horizontal;
 
     }

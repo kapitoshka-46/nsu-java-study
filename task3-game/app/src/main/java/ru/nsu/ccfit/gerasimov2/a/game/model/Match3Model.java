@@ -11,6 +11,7 @@ import ru.nsu.ccfit.gerasimov2.a.game.model.strategy.Match3DestroyStrategy;
 public class Match3Model extends Model {
     private GemField gemField;
     private DestroyStratagy destroyAlgo;
+    private int score = 0;
 
     public Match3Model(int rows, int cols, int maxCOlor) {
         gemField = new GemField(rows, cols, new GemFactory(maxCOlor));
@@ -31,7 +32,6 @@ public class Match3Model extends Model {
     public GemField getGemField() {
         return gemField;    //TODO: not a good function!!!!
     }
-
 
 
     @Override
@@ -77,10 +77,9 @@ public class Match3Model extends Model {
 
     @Override
     public void step() {
-        notifyView(); /* shows the field first time to player */ 
-
         List<Position> toDestroy = getPositionsToDestroy();
         while (!toDestroy.isEmpty()) {  /* do steps while can destroy */
+            score += toDestroy.size() * 10;
             for (Position pos : toDestroy) {    /* destroy all */
                 gemField.destroyAt(pos);
             }
@@ -91,5 +90,10 @@ public class Match3Model extends Model {
 
             toDestroy = getPositionsToDestroy(); /* check again */
         }
+    }
+
+    @Override
+    public int getScore() {
+        return score;
     }
 }

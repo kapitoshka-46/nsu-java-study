@@ -15,14 +15,9 @@ public class DefaultController extends Controller {
 
     // DefaultController accept only 2 inputs!
     public void handleInput(Position userSelection) {
-        if (userSelection != null) {
-            System.out.println("======== got selection: " + userSelection);
-        }
         if (userSelection == null) {
             return;
-        }
-        
-        
+        }   
         if (firstSelection == null) {
             selectFirst(userSelection);
         } else if (userSelection.isSameAs(firstSelection)) { // gets the same selection
@@ -36,7 +31,6 @@ public class DefaultController extends Controller {
             
             if (isMovable) {
                 deselectFirst();
-                System.out.println("success!");
                 model.step();
             } else {
                 view.message("Wrong move");
@@ -65,11 +59,12 @@ public class DefaultController extends Controller {
 
     private void updateSelection(Position pos) {
             view.drawSelection(pos); // remove selection
-            view.update();  // show it immediatly 
+            view.updateImmediatly();  // show it immediatly 
          
     }
 
     public void runGame() {
+        view.updateImmediatly();    // show model for the first time
         model.step();
         while (isRunning) {
             handleInput(view.getUserInputSelection());        
